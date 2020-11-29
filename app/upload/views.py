@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
+from django.shortcuts import redirect
 
 
 def image_upload(request):
@@ -13,3 +14,8 @@ def image_upload(request):
             "image_url": image_url
         })
     return render(request, "upload.html")
+
+
+def redirect_view(request):
+    response = redirect('/staticfiles/old/index.html')
+    return response
