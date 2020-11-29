@@ -7,3 +7,5 @@ __pycache
 
 .vscode/
 env/
+
+data/certbot/
