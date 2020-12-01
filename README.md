@@ -21,7 +21,16 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 
 ---
 
-TODO:
- - actually do something with the database
- - make a dynamic django page using templates
- - train a PyTorch model as a test & and upload to perform inference live
+# TODO:
+ - play with psq (send some queries)
+ 
+ ```
+ # something like this:
+ docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
+ \l
+ 
+ ```
+ 
+ - make a dynamic main page using templates (keep it clean)
+ - deploy a scraper to srv -> scrape something daily and add to a db through pipeline --> display database contents on user input
+ - train a PyTorch model as a test & and upload to perform inference live?
