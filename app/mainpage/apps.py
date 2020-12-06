@@ -5,6 +5,6 @@ class MainPage(AppConfig):
     name = 'mainpage'
 
 
-class UploadConfig(AppConfig):
-    name = 'upload'
+# class UploadConfig(AppConfig):
+#     name = 'upload'
 

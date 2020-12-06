@@ -7,7 +7,7 @@ from mainpage.views import mainpage
 
 urlpatterns = [
     path("", mainpage, name="mainpage"),
-    path("up/", image_upload, name="upload"),
+    # path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
 
