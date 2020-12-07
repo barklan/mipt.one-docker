@@ -31,6 +31,7 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
  
  ```
  
- - make a dynamic main page using templates (keep it clean)
+ - prettify koravov form & change global background
+ - display koravov and add links to books
  - deploy a scraper to srv -> scrape something daily and add to a db through pipeline --> display database contents on user input
  - train a PyTorch model as a test & and upload to perform inference live?
