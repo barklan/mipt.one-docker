@@ -281,8 +281,8 @@
 
 
 				// postprocessing composer and shader passes
-				WAGNER.vertexShadersPath = '/staticfiles/assets/js/libs/vertex-shaders';
-				WAGNER.fragmentShadersPath = '/staticfiles/assets/js/libs/fragment-shaders';
+				WAGNER.vertexShadersPath = '/staticfiles/js/libs/vertex-shaders';
+				WAGNER.fragmentShadersPath = '/staticfiles/js/libs/fragment-shaders';
 				
 				composer = new WAGNER.Composer( renderer, { useRGBA: true, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter } );
 				
