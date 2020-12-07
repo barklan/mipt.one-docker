@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <!-- HEAD -->
 	<head>
 		<title>MIPT One - Ссылки и ресурсы для студентов МФТИ</title>
 		<meta name="yandex-verification" content="353180fadd8a37ac" />
@@ -58,6 +59,7 @@
             </script>
 
 
+        <!-- NAVBAR -->
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
 			<a class="navbar-brand" href="https://mipt.one/">
 				<img src="/staticfiles/images/mipt_logo.png" alt="Logo" style="width:40px;">
@@ -85,7 +87,8 @@
                 </ul>
  
 			</div>
-		</nav>
+        </nav>
+        <!-- COLLAPSIBLE SOMETHING -->
         <div class="collapse" id="navbarToggleExternalContent" autofocus=on>
             <div class="bg-dark p-4">
             <h4 class="text-white">MIPT.one - Ссылки и ресурсы для студентов МФТИ</h4>
@@ -93,7 +96,7 @@
             </div>
         </div>
 
-
+        <!-- TOUCH DEVICE REFINEMENTS -->
 		<script>
 			function isTouchDevice(){
 				return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
@@ -172,18 +175,46 @@
 		
 		<div class="col-sm-3"> <!-- 2 colomn-->
             
-            
-            <!-- <div class="row-sm-3" style="background-color:#6e8667; min-height: 400px"><span class="boxtitle3">Чатик</span>
-            <ul style="margin-bottom: 14px; padding: 0px">
-                
-                
-                <script id="cid0020000262985083455" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%;height: 400px;">{"handle":"miptone","arch":"js","styles":{"a":"6e8667","b":100,"c":"FFFFFF","d":"FFFFFF","k":"343a40","l":"343a40","m":"343a40","n":"FFFFFF","p":"11","q":"f2f2f2","r":0,"t":0,"usricon":0,"surl":0,"allowpm":0,"cnrs":"0","fwtickm":1,"showx":0,"useonm":0,"fwtickm":1}}</script>
 
-                </script>
-            </ul>
-            </div> -->
-            
-            
+            <div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle3">Задачи в Корявове</span>
+				<ul>
+                    <!-- <li>
+                    <p>
+                        <form method="POST">
+                            <label><input type='radio' name='sem' value=1 checked>Механика</label> <a target='_blank' href='out.php?r=kor1'>книга</a><br>
+                            <label><input type='radio' name='sem' value=2 >Термодинамика</label> <a target='_blank' href='out.php?r=kor2'>книга</a><br>
+                            <label><input type='radio' name='sem' value=3 >Электричество</label> <a target='_blank' href='out.php?r=kor3'>книга</a><br>
+                            <label><input type='radio' name='sem' value=4 >Оптика</label> <a target='_blank' href='out.php?r=kor4'>книга</a><br>
+                            <label><input type='radio' name='sem' value=5 >Атомная физика</label> <a target='_blank' href='out.php?r=kor5'>книга</a><br>
+                            № задачи: <input name="zad" value="">
+                            <input type="submit" value="Искать">
+                        </form>
+                    </p>
+                    <p> {{ search_output }} </p>
+                    </li> -->
+
+                    <li>
+                    <p>
+                        <form method="GET">
+                            <label>Раздел:</label>
+                            <select id = "myList">
+                                <option name='sem' value=1 checked>Механика</option>
+                                <option name='sem' value=2 >Термодинамика</option>
+                                <option name='sem' value=3 >Электричество</option>
+                                <option name='sem' value=4 >Оптика</option>
+                                <option name='sem' value=5 >Атомная физика</option>
+                            </select>
+                            <br>
+                            № задачи: <input name="zad" value="">
+                            <input type="submit" value="Искать">
+                        </form>
+                    </p>
+                    <p> {{ search_output }} </p>
+                    </li>
+
+				</ul>
+			</div>
+
             <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle3">Решалки</span>
 				<ul>
 					<li><a href="https://www.wolframalpha.com/" rel="noreferrer" target="_blank">Wolfram|Alpha</a></li>
@@ -204,20 +235,16 @@
 			<div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle3">Книги и Пиратство</span>
 				<ul>
 					<li><a href="https://lib.mipt.ru/" rel="noreferrer" target="_blank">Эл. библ. Физтеха</a></li>
-					
                     <li><a href="https://ru.book4you.org/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Самая большая электронная библиотека. Здесь есть всё">Z-Lib</a> | <a href="loginlibhuwhnmis.onion/" rel="noreferrer" target="_blank">.onion ссылка</a></li>
 					<li><a href="http://flibustahezeous3.onion/" rel="noreferrer" target="_blank">Флибуста .onion</a></li>
-                    <!--
-                    <li><a href="https://www.twirpx.com/" rel="noreferrer" target="_blank" class="clearnet">Twirpx</a></li>
-                    -->
 					<li><a href="https://rutracker.org/forum/index.php" rel="noreferrer" target="_blank">Rutracker (заблокирован)</a></li>
-                    <hr>
-                    <!-- <li><p>
+                    <!-- <hr>
+                    <li><p>
                     На .onion адреса заходить с помощью <a href="https://www.torproject.org/">Tor</a>. Для обхода блокировки Роскомнадзора - также Tor, или временные прокси (<a href="https://spys.one/">например здесь</a>), или VPN (например ломаный <a href="https://4pda.ru/forum/index.php?showtopic=902760">VPNhub для Android</a>).
                     </p></li> -->
 
 				</ul>
-			</div>
+            </div>
             
            
 		</div> <!-- /2 colomn-->
