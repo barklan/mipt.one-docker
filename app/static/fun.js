@@ -236,7 +236,7 @@
 
 				//create background plane
 				planeGeo = new THREE.PlaneGeometry(1000, 1000,1,1);
-				planeMaterial = new THREE.MeshBasicMaterial( { map : THREE.ImageUtils.loadTexture('img/squarey_bg.png') } );
+				planeMaterial = new THREE.MeshBasicMaterial( { map : THREE.ImageUtils.loadTexture('/staticfiles/img/squarey_bg.png') } );
 				plane = new THREE.Mesh( planeGeo, planeMaterial);
 				sceneBG.add(plane);
 				plane.position.z = -800;
@@ -255,9 +255,9 @@
 				
 				// create textured materials for each cube's faces
 				geometry = new THREE.BoxGeometry( 20, 20, 20 );
-				textureCube = THREE.ImageUtils.loadTexture('img/squarey_side.png');
-				textureFace = THREE.ImageUtils.loadTexture('img/squarey_happy.png');
-				textureBack = THREE.ImageUtils.loadTexture('img/squarey_sad.png');
+				textureCube = THREE.ImageUtils.loadTexture('/staticfiles/img/squarey_side.png');
+				textureFace = THREE.ImageUtils.loadTexture('/staticfiles/img/squarey_happy.png');
+				textureBack = THREE.ImageUtils.loadTexture('/staticfiles/img/squarey_sad.png');
 
 				// render textures at lowest quality
 				textureCube.minFilter = textureCube.magFilter = THREE.NearestFilter;
@@ -281,8 +281,8 @@
 
 
 				// postprocessing composer and shader passes
-				WAGNER.vertexShadersPath = 'js/libs/vertex-shaders';
-				WAGNER.fragmentShadersPath = 'js/libs/fragment-shaders';
+				WAGNER.vertexShadersPath = '/staticfiles/assets/js/libs/vertex-shaders';
+				WAGNER.fragmentShadersPath = '/staticfiles/assets/js/libs/fragment-shaders';
 				
 				composer = new WAGNER.Composer( renderer, { useRGBA: true, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter } );
 				
