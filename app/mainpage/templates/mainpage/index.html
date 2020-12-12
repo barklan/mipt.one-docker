@@ -17,23 +17,31 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <!-- Bootstrap 5! -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+
+		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
 
 		<link rel="stylesheet" href="/staticfiles/assets/css/onemipt.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
+ 
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(65876926, "init", {
+            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        
+            ym(65876926, "init", {
                 clickmap:true,
                 trackLinks:true,
-                accurateTrackBounce:true
-        });
+                accurateTrackBounce:true,
+                webvisor:true
+            });
         </script>
         <noscript><div><img src="https://mc.yandex.ru/watch/65876926" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- /Yandex.Metrika counter -->
@@ -66,9 +74,7 @@
 				&nbsp MIPT.one 
 			</a>
             <ul class="navbar-nav">
-            <!-- <li class="nav-item">
-				<a class="nav-link" href="https://t.me/joinchat/FGv9-BlFDlpidU4dOVlxgA">TG</a>
-			</li> -->
+
             </ul>
 
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -114,7 +120,7 @@
 		
 	
 		<div class="col-sm-3"> <!-- 1 colomn-->
-            <div class="row-sm-3" style="background-color: #f2f2f2;">
+            <!-- <div class="row-sm-3" style="background-color: #f2f2f2;">
 				<ul>
                     <li>
 						<a class="weatherwidget-io" href="https://forecast7.com/ru/55d9537d50/dolgoprudny/" data-label_1="Погода" data-label_2="в Долгопрудном" data-icons="Climacons Animated" data-mode="Current" data-days="3" data-theme="pure" data-basecolor="" >Погода в Долгопрудном</a>
@@ -123,7 +129,58 @@
 						</script>
 					</li>
 				</ul>
-			</div>
+            </div> -->
+            
+            <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle2">Задачи в Корявове</span>
+            
+                <ul>
+
+                    <li>
+                        <!-- <form method="GET"> -->
+                        <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="sem" id="btnradio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="btnradio1">Механика</label>
+                          
+                            <input type="radio" class="btn-check" name="sem" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">Термодинамика</label>
+                          
+                            <input type="radio" class="btn-check" name="sem" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">Электричество</label>
+
+                            <input type="radio" class="btn-check" name="sem" id="btnradio4" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio4">Оптика</label>
+
+                            <input type="radio" class="btn-check" name="sem" id="btnradio5" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio5">Атомная физика</label>
+                        </div>
+                        <br>
+                            № задачи: <input name="zad" value="">
+                            <input type="submit" value="Искать" class="btn btn-primary">
+                        </form> -->
+
+
+
+                    <p>
+                        <form method="GET">
+                            <label>Раздел:</label>
+                            <select name='sem'>
+                                <option name='sem' value=1 checked>Механика</option>
+                                <option name='sem' value=2 >Термодинамика</option>
+                                <option name='sem' value=3 >Электричество</option>
+                                <option name='sem' value=4 >Оптика</option>
+                                <option name='sem' value=5 >Атомная физика</option>
+                            </select>
+                            <br>
+                            № задачи: <input name="zad" value="">
+                            <input type="submit" value="Искать" class="btn btn-primary">
+                        </form>
+                    </p>
+                    <p> {{ search_output }} </p>
+                    </li>
+
+				</ul>
+
+            </div>
             
             <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle2">Скат Общее</span>
 			<ul>
@@ -137,7 +194,6 @@
 				</li>
 				<li><a href="https://text.ru/" rel="noreferrer" target="_blank">Проверка на плагиат</a></li>
                 <li><a href="https://mipt1.ru/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Полезная функция - поиск задач в Корявове">В помощь раздолбаю</a></li>
-                <hr>
 				<li><a href="https://vk.com/fanclub_letchikleha" rel="noreferrer" target="_blank">Клуб фанатов ЛЛ</a></li>
 				<li><a href="https://drive.google.com/drive/folders/0B5U2D1zceCRyZ1FDaWVUUzNWVVE" rel="noreferrer" target="_blank">Тупой скат </a>(<a href="https://vk.com/tupoy_skat" rel="noreferrer" target="_blank">VK</a>)</li>
 				<li><a href="https://drive.google.com/drive/folders/0BzLQByfHfn5bd1hETFJYc2x3UzQ" rel="noreferrer" target="_blank">Наследие 2.0</a></li>
@@ -145,15 +201,6 @@
 				<li><a href="https://vk.com/t_p_phystech" rel="noreferrer" target="_blank">ТПФ</a></li>
 				<li><a href="https://vk.com/club188560953" rel="noreferrer" target="_blank">Лаборант Дима и Карлсон</a></li>
                 
-			</ul>
-			</div>
-			<div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle2">Лекции</span>
-			<ul>
-				<li><a href="https://mipt.ru/education/elektronnoe-obuchenie/virtualRooms/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Видеолекции Физтеха">Виртуальные аудитории МФТИ</a></li>
-				<li><a href="https://mipt.ru/online/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Видеолекции Физтеха">Онлайн-лекции МФТИ</a></li>
-				<li><a href="https://mipt.lectoriy.ru/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Видеолекции Физтеха">Лекторий МФТИ</a></li>
-                <li><a href="https://www.feynmanlectures.caltech.edu/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Курс лекций по общей физике, прочитанный Ричардом Фейнманом в 1960-х в Калифорнийском технологическом институте. Заходит очень хорошо">The Feynman Lectures on Physics</a></li>
-
 			</ul>
 			</div>
 
@@ -164,7 +211,8 @@
 				<li><a href="https://chrome.google.com/webstore/detail/moodle-breaker/engmdgoencliofhoomjomajchpiljoio" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Расширение для Chrome, ломающее квизы">Moodle Breaker</a></li>
 
 			</ul>
-			</div>
+            </div>
+            
 			<div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle2">Прога</span>
 				<ul>
 					<li><a href="http://ejudge.mipt.ru/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Ссылки на все контесты">Ejudge</a></li>
@@ -174,46 +222,16 @@
 		</div> <!-- /1 colomn-->
 		
 		<div class="col-sm-3"> <!-- 2 colomn-->
-            
 
-            <div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle3">Задачи в Корявове</span>
-				<ul>
-                    <!-- <li>
-                    <p>
-                        <form method="POST">
-                            <label><input type='radio' name='sem' value=1 checked>Механика</label> <a target='_blank' href='out.php?r=kor1'>книга</a><br>
-                            <label><input type='radio' name='sem' value=2 >Термодинамика</label> <a target='_blank' href='out.php?r=kor2'>книга</a><br>
-                            <label><input type='radio' name='sem' value=3 >Электричество</label> <a target='_blank' href='out.php?r=kor3'>книга</a><br>
-                            <label><input type='radio' name='sem' value=4 >Оптика</label> <a target='_blank' href='out.php?r=kor4'>книга</a><br>
-                            <label><input type='radio' name='sem' value=5 >Атомная физика</label> <a target='_blank' href='out.php?r=kor5'>книга</a><br>
-                            № задачи: <input name="zad" value="">
-                            <input type="submit" value="Искать">
-                        </form>
-                    </p>
-                    <p> {{ search_output }} </p>
-                    </li> -->
+            <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle3">Лекции</span>
+                <ul>
+                    <li><a href="https://mipt.ru/education/elektronnoe-obuchenie/virtualRooms/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Видеолекции Физтеха">Виртуальные аудитории МФТИ</a></li>
+                    <li><a href="https://mipt.ru/online/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Видеолекции Физтеха">Онлайн-лекции МФТИ</a></li>
+                    <li><a href="https://mipt.lectoriy.ru/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Видеолекции Физтеха">Лекторий МФТИ</a></li>
+                    <li><a href="https://www.feynmanlectures.caltech.edu/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Курс лекций по общей физике, прочитанный Ричардом Фейнманом в 1960-х в Калифорнийском технологическом институте. Заходит очень хорошо">The Feynman Lectures on Physics</a></li>
 
-                    <li>
-                    <p>
-                        <form method="GET">
-                            <label>Раздел:</label>
-                            <select name='sem'>
-                                <option name='sem' value=1 checked>Механика</option>
-                                <option name='sem' value=2 >Термодинамика</option>
-                                <option name='sem' value=3 >Электричество</option>
-                                <option name='sem' value=4 >Оптика</option>
-                                <option name='sem' value=5 >Атомная физика</option>
-                            </select>
-                            <br>
-                            № задачи: <input name="zad" value="">
-                            <input type="submit" value="Искать">
-                        </form>
-                    </p>
-                    <p> {{ search_output }} </p>
-                    </li>
-
-				</ul>
-			</div>
+                </ul>
+            </div>
 
             <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle3">Решалки</span>
 				<ul>
@@ -237,7 +255,7 @@
 					<li><a href="https://lib.mipt.ru/" rel="noreferrer" target="_blank">Эл. библ. Физтеха</a></li>
                     <li><a href="https://ru.book4you.org/" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="right" title="Самая большая электронная библиотека. Здесь есть всё">Z-Lib</a> | <a href="loginlibhuwhnmis.onion/" rel="noreferrer" target="_blank">.onion ссылка</a></li>
 					<li><a href="http://flibustahezeous3.onion/" rel="noreferrer" target="_blank">Флибуста .onion</a></li>
-					<li><a href="https://rutracker.org/forum/index.php" rel="noreferrer" target="_blank">Rutracker (заблокирован)</a></li>
+					<li><a href="https://rutracker.org/forum/index.php" rel="noreferrer" target="_blank">Rutracker</a></li>
                     <!-- <hr>
                     <li><p>
                     На .onion адреса заходить с помощью <a href="https://www.torproject.org/">Tor</a>. Для обхода блокировки Роскомнадзора - также Tor, или временные прокси (<a href="https://spys.one/">например здесь</a>), или VPN (например ломаный <a href="https://4pda.ru/forum/index.php?showtopic=902760">VPNhub для Android</a>).

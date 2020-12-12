@@ -126,7 +126,9 @@
 				height: 500px; 
 				margin-top: -290px; 
 				width: 100%;
-			}
+            }
+
+
 			a[href*="vk.com/"] {
 				background:url(../icons/vk.png) no-repeat left center;
 				padding-left:19px;
