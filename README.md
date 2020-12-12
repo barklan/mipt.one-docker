@@ -37,3 +37,4 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
  - deploy a scraper to srv -> scrape something daily and add to a db through pipeline --> display database contents on user input
  - blog on django?
  - train a PyTorch model as a test & and upload to perform inference live?
+ - community support in vk?
