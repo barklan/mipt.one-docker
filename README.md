@@ -32,6 +32,8 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
  ```
  
  - prettify koravov form & change global background
- - display koravov and add links to books
+ - physics control panel separate page (koryavov, solutions, and labs)
+ - quote generator to the main page random every load on header
  - deploy a scraper to srv -> scrape something daily and add to a db through pipeline --> display database contents on user input
+ - blog on django?
  - train a PyTorch model as a test & and upload to perform inference live?
