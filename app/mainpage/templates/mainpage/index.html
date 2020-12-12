@@ -131,50 +131,28 @@
 				</ul>
             </div> -->
             
-            <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle2">Задачи в Корявове</span>
+            <div class="row-sm-3" style="background-color: #f2f2f2;">
+            <!-- <span class="boxtitle2">Задачи и Лабы</span> -->
             
                 <ul>
 
-                    <li>
-                        <!-- <form method="GET"> -->
-                        <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="sem" id="btnradio1" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="btnradio1">Механика</label>
-                          
-                            <input type="radio" class="btn-check" name="sem" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio2">Термодинамика</label>
-                          
-                            <input type="radio" class="btn-check" name="sem" id="btnradio3" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio3">Электричество</label>
-
-                            <input type="radio" class="btn-check" name="sem" id="btnradio4" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio4">Оптика</label>
-
-                            <input type="radio" class="btn-check" name="sem" id="btnradio5" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio5">Атомная физика</label>
-                        </div>
-                        <br>
-                            № задачи: <input name="zad" value="">
-                            <input type="submit" value="Искать" class="btn btn-primary">
-                        </form> -->
-
-
-
-                    <p>
+                    <li style="margin-left:-32px; margin-right:0px;">
                         <form method="GET">
-                            <label>Раздел:</label>
-                            <select name='sem'>
-                                <option name='sem' value=1 checked>Механика</option>
+                        <div class="input-group">
+                            <select name='sem' class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                <option name='sem' value=1 selected>Механика</option>
                                 <option name='sem' value=2 >Термодинамика</option>
                                 <option name='sem' value=3 >Электричество</option>
                                 <option name='sem' value=4 >Оптика</option>
                                 <option name='sem' value=5 >Атомная физика</option>
+                                <option name='sem' value=6 >Лабы (пока не робит)</option>
                             </select>
-                            <br>
-                            № задачи: <input name="zad" value="">
+
+                            <input type="text" name="zad" value="" class="form-control" aria-label="Text input with 2 dropdown buttons" placeholder="номер">
                             <input type="submit" value="Искать" class="btn btn-primary">
+                        </div>
                         </form>
-                    </p>
+
                     <p> {{ search_output }} </p>
                     </li>
 

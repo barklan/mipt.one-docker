@@ -1,4 +1,5 @@
 ## This is a playground server... for now
+`docker system prune -a` to clear all used space by docker
 
 This is [**mipt.one**](https://mipt.one/) - info webservice for MIPT students
 
@@ -31,10 +32,10 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
  
  ```
  
- - prettify koravov form & change global background
  - physics control panel separate page (koryavov, solutions, and labs)
  - quote generator to the main page random every load on header
  - deploy a scraper to srv -> scrape something daily and add to a db through pipeline --> display database contents on user input
  - blog on django?
  - train a PyTorch model as a test & and upload to perform inference live?
  - community support in vk?
+ - database sequrity
