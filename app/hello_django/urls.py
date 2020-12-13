@@ -3,10 +3,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from mainpage.views import mainpage
+from mainpage.views import mainpage, phys
+
 
 urlpatterns = [
     path("", mainpage, name="mainpage"),
+    path("phys/", phys, name="phys"),
     # path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
