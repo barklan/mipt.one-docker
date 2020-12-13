@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "mainpage",
     "physics",
     "upload",
+    "antiplag",
 ]
 
 MIDDLEWARE = [

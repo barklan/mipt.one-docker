@@ -6,12 +6,15 @@ from django.conf.urls.static import static
 from mainpage.views import mainpage, phys
 from physics.views import phgo, redirect_view
 from upload.views import image_upload
+from antiplag.views import antiplagpage, antiplagapi
 
 
 urlpatterns = [
     path("", mainpage, name="mainpage"),
     path("phys/", phys, name="phys"),
-    path("physics/", redirect_view, name="physics"),
+    path("physics/", phgo, name="physics"),
+    path("antiplag/", antiplagpage, name="antiplag"),
+    path("antiplagapi/", antiplagapi, name="antiplagapi"),
     path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
