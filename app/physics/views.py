@@ -6,6 +6,8 @@ from aiohttp import ClientSession
 from bs4 import BeautifulSoup
 import asyncio
 import re
+import requests
+import os
 
 
 from django.contrib.auth.models import User
@@ -52,19 +54,6 @@ def image_upload_fuck(request):
         return JsonResponse(response)
 
 
-# def model_form_upload(request):
-#     if request.method == 'POST':
-#         form = DocumentForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             # return redirect('home')
-#     else:
-#         form = DocumentForm()
-#     return render(request, 'physics/index.html', {
-#         'form': form
-#     })
-
-
 def redirect_view(request):
     response = redirect('/staticfiles/old/index.html')
     return response
@@ -105,15 +94,19 @@ def phys(request):
     else:
         kor_output = ' '
 
-    image_url = '/mediafiles/imgbank/' + sem + '/' + zad + '.jpg'
-    # image_url = '/mediafiles/imgbank/8.51.jpg'
 
+    image_url = '/mediafiles/imgbank/' + sem + '/' + zad + '.jpg'
+    if os.path.isfile('/home/app/web' + image_url):
+        code404 = '0'
+    else:
+        code404 = '1'
 
     response = {
         'sem': sem,
         'zad': zad,
         'search_output': kor_output,
-        'image_url': image_url
+        'image_url': image_url,
+        'code404' : code404
     }
     return JsonResponse(response)
 

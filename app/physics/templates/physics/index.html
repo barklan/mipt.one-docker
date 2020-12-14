@@ -154,10 +154,10 @@
 
             </div>
             
-            <div class="row-sm-3" style="background-color: #f2f2f2;">
+            <div id="uploadformdiv" class="row-sm-3" style="background-color: #f2f2f2; display: none">
             <span class="boxtitle2">Нет решения? Выложи своё!</span>
 			<ul>
-				<li id='imageuploadid' style='margin-right:0px; margin-left:-30px'>
+				<li id='imageuploadid' style='margin-right:0px; margin-left:-32px'>
 
                     {% block content %}
 
@@ -189,7 +189,7 @@
 		
 		<div class="col-md-8 col-md-9"> <!-- 2 colomn-->
 
-            <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle3">Решение</span>
+            <div id="solutiondiv" class="row-sm-3" style="background-color: #f2f2f2; display: none;"><span class="boxtitle3">Решение</span>
                 <ul>
                     <li id="solutionimage">
 
@@ -218,8 +218,22 @@
                         success: function(response) {
                             $("#physout").html(response.search_output);
                             $("#solutionimage").html('<img src="'+ response.image_url + '" class="img-fluid" alt="No image... for now">');
+
                             $("#hiddensem").attr("value", response.sem);
                             $("#hiddenzad").attr("value", response.zad);
+
+                            div = document.getElementById("uploadformdiv");
+                            soldiv = document.getElementById("solutiondiv");
+
+                            if (response.code404 == '1') {
+                                div.style["display"] = "block"
+                                soldiv.style["display"] = "none"
+                            }
+
+                            if (response.code404 == '0') {
+                                div.style["display"] = "none"
+                                soldiv.style["display"] = "block"
+                            }
                             // alert('it worked');
                             // alert(response.search_output);
                         },
