@@ -234,6 +234,11 @@
                                 div.style["display"] = "none"
                                 soldiv.style["display"] = "block"
                             }
+
+                            if (response.wrong_input == '1') {
+                                div.style["display"] = "none"
+                                soldiv.style["display"] = "none"
+                            }
                             // alert('it worked');
                             // alert(response.search_output);
                         },

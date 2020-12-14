@@ -60,6 +60,7 @@ def redirect_view(request):
 
 
 def phys(request):
+    wrong_input = 0
     sem = str(request.GET.get('sem', None))
     zad = str(request.GET.get('zad', None))
     url = f'https://mipt1.ru/1_2_3_4_5_kor.php?sem={sem}&zad={zad}'
@@ -91,6 +92,7 @@ def phys(request):
         kor_output = zad + ' нет в Корявове :('
     elif re.match(r'Укажите номер задачи корректно!', output):
         kor_output = 'это что это за задача такая?'
+        wrong_input = '1'
     else:
         kor_output = ' '
 
@@ -102,6 +104,7 @@ def phys(request):
         code404 = '1'
 
     response = {
+        'wrong_input': wrong_input,
         'sem': sem,
         'zad': zad,
         'search_output': kor_output,
