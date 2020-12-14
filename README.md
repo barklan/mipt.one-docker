@@ -23,27 +23,21 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 ---
 
 # TODO:
- - play with psq (send some queries)
  
- ```
- # something like this:
- docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
- \l
- 
- ```
- 
- - physics control panel separate page (koryavov, solutions, and labs)
- - quote generator to the main page random every load on header
- - deploy a scraper to srv -> scrape something daily and add to a db through pipeline --> display database contents on user input
- - blog on django?
- - train a PyTorch model as a test & and upload to perform inference live?
- - community support in vk?
- - database sequrity
 
+
+### A note on system managment
+
+`free -h`
 
 ### A note on docker volumes
 
 - list through the `docker volume ls`
 - identify through the `docker volume inspect volume_name`
+
+The new volume API adds a useful command that lets you identify dangling volumes:
+> docker volume ls -f dangling=true
+
+
 
 /var/lib/docker/volumes/miptonedocker_media_volume/_data/imgbank/8.51.jpg
