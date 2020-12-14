@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from aiohttp import ClientSession
 from bs4 import BeautifulSoup
 import asyncio
+import re
 
 
 from django.contrib.auth.models import User
@@ -21,8 +22,8 @@ def mainpage(request):
 
 
 def phys(request):
-    sem = request.GET.get('sem', None)
-    zad = request.GET.get('zad', None)
+    sem = str(request.GET.get('sem', None))
+    zad = str(request.GET.get('zad', None))
     url = f'https://mipt1.ru/1_2_3_4_5_kor.php?sem={sem}&zad={zad}'
 
 
@@ -45,12 +46,22 @@ def phys(request):
     output_list = asyncio.run(fetch(url))
     output = output_list[0]
 
-    image_url = '/mediafiles/imgbank/' + str(sem) + '/' + str(zad) + '.jpg'
+    if re.match(r'.*странице', output):
+        kor_page = re.search(r'№\d*', output)[0]
+        kor_output = zad + ' есть в Корявове на странице ' + kor_page
+    elif re.match(r'.*не найдена', output):
+        kor_output = zad + ' нет в Корявове :('
+    elif re.match(r'Укажите номер задачи корректно!', output):
+        kor_output = 'это что это за задача такая?'
+    else:
+        kor_output = ' '
+
+    image_url = '/mediafiles/imgbank/' + sem + '/' + zad + '.jpg'
     # image_url = '/mediafiles/imgbank/8.51.jpg'
 
 
     response = {
-        'search_output': output,
+        'search_output': kor_output,
         'image_url': image_url
     }
     return JsonResponse(response)
@@ -60,21 +71,3 @@ def phys(request):
     #     'search_output': output,
     # }
     # return render(request, 'mainpage/index.html', context)
-
-
-# def image_upload(request):
-#     if request.method == "POST" and request.FILES["image_file"]:
-#         image_file = request.FILES["image_file"]
-#         fs = FileSystemStorage()
-#         filename = fs.save(image_file.name, image_file)
-#         image_url = fs.url(filename)
-#         print(image_url)
-#         return render(request, "upload.html", {
-#             "image_url": image_url
-#         })
-#     return render(request, "upload.html")
-
-
-# def redirect_view(request):
-#     response = redirect('/staticfiles/old/index.html')
-#     return response
