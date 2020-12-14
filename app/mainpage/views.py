@@ -45,8 +45,13 @@ def phys(request):
     output_list = asyncio.run(fetch(url))
     output = output_list[0]
 
+    image_url = 'https://mipt.one/mediafiles/imgbank/' + str(zad) + '.jpg'
+    # image_url = '/mediafiles/imgbank/8.51.jpg'
+
+
     response = {
-        'search_output': output
+        'search_output': output,
+        'image_url': image_url
     }
     return JsonResponse(response)
 

@@ -79,22 +79,20 @@
 
             </ul>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
            
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav">
-				<!-- <li class="nav-item">
-                <form onsubmit="return doSearch(this)" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2 ml-sm-5" type="search" placeholder="Поиск в Яндексе" name="searchText" id="searchText" aria-label="Search">
-                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Скатать!</button>
-                </form>
-				</li> -->
-
+			<div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/antiplag/">АнтиПлагиат</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/physics/">Банк задач по физике</a>
+                  </li>
                 </ul>
- 
-			</div>
+            </div>
         </nav>
         <!-- COLLAPSIBLE SOMETHING -->
         <div class="collapse" id="navbarToggleExternalContent" autofocus=on>
@@ -146,37 +144,6 @@
 
                         <p style="padding:6px" id="physout">Поиcк по лабам и задачам в Корявове</p>
 
-                        {% block javascript %}
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                    
-                        <script>
-                            $(document).ready(function () {
-                                // catch the form's submit event
-                                $('#physform').submit(function() {
-                                    // create an AJAX call
-                                    $.ajax({
-                                        data: $(this).serialize(), // get the form data
-                                        url: "{% url 'phys' %}",
-                                        // on success
-                                        success: function(response) {
-                                            $("#physout").html(response.search_output);
-                                            // alert('it worked');
-                                            // alert(response.search_output);
-                                        },
-                                        // on error
-                                        error: function(response) {
-                                            alert('it didnt work');
-                                            // alert the error if any error occured
-                                            console.log(response.responseJSON.errors)
-                                        }
-                                    });
-                    
-                                    return false;
-                                });
-                            })
-                        </script>
-                        {% endblock javascript %}
-
 
                     <!-- <p style="padding:6px"> {{ search_output }} </p> -->
                     </li>
@@ -201,7 +168,7 @@
 
             <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle3">Решение</span>
                 <ul>
-                    <li>
+                    <li id="solutionimage">
 
 
                     </li>
@@ -221,7 +188,41 @@
 
 	
 		</div> <!-- /4 колонны-->
-		
+        
+        
+        {% block javascript %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+        <script>
+            $(document).ready(function () {
+                // catch the form's submit event
+                $('#physform').submit(function() {
+                    // create an AJAX call
+                    $.ajax({
+                        data: $(this).serialize(), // get the form data
+                        url: "{% url 'phys' %}",
+                        // on success
+                        success: function(response) {
+                            $("#physout").html(response.search_output);
+                            $("#solutionimage").html('<img src="'+ response.image_url + '" class="img-fluid" alt="No image... for now">');
+                            // alert('it worked');
+                            // alert(response.search_output);
+                        },
+                        // on error
+                        error: function(response) {
+                            alert('it didnt work');
+                            // alert the error if any error occured
+                            console.log(response.responseJSON.errors)
+                        }
+                    });
+    
+                    return false;
+                });
+            })
+        </script>
+        {% endblock javascript %}
+
+
 	</div>
 	</body>
 </html>

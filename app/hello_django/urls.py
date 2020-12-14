@@ -15,9 +15,11 @@ urlpatterns = [
     path("physics/", phgo, name="physics"),
     path("antiplag/", antiplagpage, name="antiplag"),
     path("antiplagapi/", antiplagapi, name="antiplagapi"),
+    # path("imgbank/", antiplagapi, name="antiplagapi"),
     path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
+
 
 if bool(settings.DEBUG):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
