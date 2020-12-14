@@ -39,3 +39,11 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
  - train a PyTorch model as a test & and upload to perform inference live?
  - community support in vk?
  - database sequrity
+
+
+### A note on docker volumes
+
+- list through the `docker volume ls`
+- identify through the `docker volume inspect volume_name`
+
+/var/lib/docker/volumes/miptonedocker_media_volume/_data/imgbank/8.51.jpg

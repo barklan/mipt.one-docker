@@ -9,9 +9,9 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      - type: bind
-        source: ./imgbank
-        target: /home/app/web/mediafiles/imgbank
+      # - type: bind
+      #   source: ./imgbank
+      #   target: /home/app/web/mediafiles/imgbank
     expose:
       - 8000
     env_file:
@@ -29,9 +29,10 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      - type: bind
-        source: ./imgbank
-        target: /home/app/web/mediafiles/imgbank
+      # - type: bind
+      #   source: ./imgbank
+      #   target: /home/app/web/mediafiles/imgbank
+      #   RW: true
     # ports:
     #   - "80:80"
     depends_on:

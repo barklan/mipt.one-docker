@@ -18,7 +18,7 @@ urlpatterns = [
     path("upload/", image_upload, name="upload"),
     # path("uploadfuck/", model_form_upload, name='model_form_upload'),
     # path("imgbank/", antiplagapi, name="antiplagapi"),
-    path("up/", image_upload, name="upload"),
+    # path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
 
