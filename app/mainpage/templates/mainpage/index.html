@@ -71,17 +71,18 @@
 
         <!-- NAVBAR -->
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+        <div class="container-fluid">
 			<a class="navbar-brand" href="https://mipt.one/">
 				<img src="/staticfiles/images/mipt_logo.png" alt="Logo" style="width:50px; padding-left:10px; padding-right:10px">
 				MIPT.one
 			</a>
-            <ul class="navbar-nav">
+            <!-- <ul class="navbar-nav">
 
-            </ul>
+            </ul> -->
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
            
 			<div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -90,6 +91,7 @@
                   </li>
                 </ul>
             </div>
+        </div>
         </nav>
         <!-- COLLAPSIBLE SOMETHING -->
         <div class="collapse" id="navbarToggleExternalContent" autofocus=on>
@@ -128,68 +130,6 @@
 				</ul>
             </div> -->
             
-            <div class="row-sm-3" style="background-color: #f2f2f2;">
-            <!-- <span class="boxtitle2">Задачи и Лабы</span> -->
-            
-                <ul>
-
-                    <li style="margin-left:-32px; margin-right:0px;">
-                        <form method="GET" id="physform">
-                        <div class="input-group">
-                            <select name='sem' class="form-select btn-secondary" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                <option name='sem' value=1 selected>Механика</option>
-                                <option name='sem' value=2 >Термодинамика</option>
-                                <option name='sem' value=3 >Электричество</option>
-                                <option name='sem' value=4 >Оптика</option>
-                                <option name='sem' value=5 >Атомная физика</option>
-                                <option name='sem' value=6 >Лабы (пока не робит)</option>
-                            </select>
-
-                            <input id="physnumber" type="number" step="any" name="zad" value="" class="form-control" aria-label="Text input with 2 dropdown buttons" placeholder="номер">
-                            <button type="submit" value="Искать" class="btn btn-secondary"><i class="fa fa-search"></i></button>
-                        </div>
-                        </form>
-
-                        <p style="padding:6px" id="physout">Поиcк по лабам и задачам в Корявове</p>
-
-                        {% block javascript %}
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                    
-                        <script>
-                            $(document).ready(function () {
-                                // catch the form's submit event
-                                $('#physform').submit(function() {
-                                    // create an AJAX call
-                                    $.ajax({
-                                        data: $(this).serialize(), // get the form data
-                                        url: "{% url 'phys' %}",
-                                        // on success
-                                        success: function(response) {
-                                            $("#physout").html(response.search_output);
-                                            // alert('it worked');
-                                            // alert(response.search_output);
-                                        },
-                                        // on error
-                                        error: function(response) {
-                                            alert('it didnt work');
-                                            // alert the error if any error occured
-                                            console.log(response.responseJSON.errors)
-                                        }
-                                    });
-                    
-                                    return false;
-                                });
-                            })
-                        </script>
-                        {% endblock javascript %}
-
-
-                    <!-- <p style="padding:6px"> {{ search_output }} </p> -->
-                    </li>
-
-				</ul>
-
-            </div>
             
             <div class="row-sm-3" style="background-color: #f2f2f2;"><span class="boxtitle2">Скат Общее</span>
 			<ul>
@@ -212,6 +152,71 @@
                 
 			</ul>
 			</div>
+
+
+            <div class="row-sm-3" style="background-color: #f2f2f2;">
+                <!-- <span class="boxtitle2">Задачи и Лабы</span> -->
+                
+                    <ul>
+    
+                        <li style="margin-left:-32px; margin-right:0px;">
+                            <form method="GET" id="physform">
+                            <div class="input-group">
+                                <select name='sem' class="form-select btn-secondary" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                    <option name='sem' value=1 selected>Механика</option>
+                                    <option name='sem' value=2 >Термодинамика</option>
+                                    <option name='sem' value=3 >Электричество</option>
+                                    <option name='sem' value=4 >Оптика</option>
+                                    <option name='sem' value=5 >Атомная физика</option>
+                                    <option name='sem' value=6 >Лабы (пока не робит)</option>
+                                </select>
+    
+                                <input id="physnumber" type="number" step="any" name="zad" value="" class="form-control" aria-label="Text input with 2 dropdown buttons" placeholder="номер">
+                                <button type="submit" value="Искать" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                            </div>
+                            </form>
+    
+                            <p style="padding:6px" id="physout">Поиcк по лабам и задачам в Корявове</p>
+    
+                            {% block javascript %}
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        
+                            <script>
+                                $(document).ready(function () {
+                                    // catch the form's submit event
+                                    $('#physform').submit(function() {
+                                        // create an AJAX call
+                                        $.ajax({
+                                            data: $(this).serialize(), // get the form data
+                                            url: "{% url 'phys' %}",
+                                            // on success
+                                            success: function(response) {
+                                                $("#physout").html(response.search_output);
+                                                // alert('it worked');
+                                                // alert(response.search_output);
+                                            },
+                                            // on error
+                                            error: function(response) {
+                                                alert('it didnt work');
+                                                // alert the error if any error occured
+                                                console.log(response.responseJSON.errors)
+                                            }
+                                        });
+                        
+                                        return false;
+                                    });
+                                })
+                            </script>
+                            {% endblock javascript %}
+    
+    
+                        <!-- <p style="padding:6px"> {{ search_output }} </p> -->
+                        </li>
+    
+                    </ul>
+    
+            </div>
+
 
 			<div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle2">Английский</span>
 			<ul>

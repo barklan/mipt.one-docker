@@ -81,7 +81,8 @@
 			}
 
 			.row-sm-3 {
-				border-radius: 5px;
+                border-radius: 5px;
+                margin: 3px
 			}
 
 			.boxtitle4 {

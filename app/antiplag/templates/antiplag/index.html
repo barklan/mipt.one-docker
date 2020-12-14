@@ -125,12 +125,12 @@
                     <li style="margin-left:-32px; margin-right:0px;">
                         <form method="POST" id="antiplagform">
                             <div class="form-floating">
-                                <textarea class="form-control" name="inptext" placeholder="Leave a comment here" id="inputtext" style="height: 100px"></textarea>
+                                <textarea class="form-control" name="inptext" placeholder="Leave a comment here" id="inputtext" style="height: 400px"></textarea>
                                 <label for="floatingTextarea2">Вставляйте текст</label>
                             </div>
                         </form>
 
-                        <!-- <p style="padding:6px" id="antiplagout">there should be live output</p> -->
+                        <p style="padding:6px" id="antiplagout"></p>
 
 
                     <!-- <p style="padding:6px"> {{ search_output }} </p> -->
@@ -187,11 +187,13 @@
                         url: "{% url 'antiplagapi' %}",
                         // url: 'antiplagapi/',
                         success: function(response) {
+                        $('#antiplagout').html('ЛОГ: успех');
                         $('#antiplagout2').html(response.search_output);
                         },
                         error: function(response) {
-                            // $('#antiplagout').html('Слишком много текста');
-                            alert('it didnt work');
+                            $('#antiplagout').html('ЛОГ: неуспешно');
+                            $('#antiplagout2').html('');
+                            // alert('it didnt work');
                             // alert the error if any error occured
                         }
                     });
