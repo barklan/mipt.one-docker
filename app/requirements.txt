@@ -6,3 +6,4 @@ scrapy
 setuptools
 aiohttp
 requests
+Pillow

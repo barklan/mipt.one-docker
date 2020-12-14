@@ -128,7 +128,7 @@
                 <ul>
 
                     <li style="margin-left:-32px; margin-right:0px;">
-                        <form method="GET" id="physform">
+                        <form method="GET" id="physform" name="theForm">
                         <div class="input-group">
                             <select name='sem' class="form-select btn-secondary" id="inputGroupSelect04" aria-label="Example select with button addon">
                                 <option name='sem' value=1 selected>Механика</option>
@@ -159,6 +159,22 @@
 			<ul>
 				<li id='imageuploadid'>
 
+                    {% block content %}
+
+                    <form id="fileuploadform" action="{% url 'uploadfuck' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input id="fileinput" type="file" name="image_file">
+                        <input type="hidden" id="hiddensem" name="semup" value="1">
+                        <input type="hidden" id="hiddenzad" name="zadup" value="1338">
+                        <input type="submit" value="submit" />
+                    </form>
+
+                    <!-- {% if image_url %}
+                        <p>File uploaded at: <a href="{{ image_url }}">{{ image_url }}</a></p>
+                    {% endif %} -->
+
+                    {% endblock %}
+
                 </li>
                 
 			</ul>
@@ -186,18 +202,19 @@
         {% block javascript %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
+
+        <!-- SEARCH FORM -->
         <script>
-            $(document).ready(function () {
-                // catch the form's submit event
-                $('#physform').submit(function() {
-                    // create an AJAX call
-                    $.ajax({
-                        data: $(this).serialize(), // get the form data
+            function fuckingsearch() {
+                $.ajax({
+                        data: $('#physform').serialize(), // get the form data
                         url: "{% url 'phys' %}",
                         // on success
                         success: function(response) {
                             $("#physout").html(response.search_output);
                             $("#solutionimage").html('<img src="'+ response.image_url + '" class="img-fluid" alt="No image... for now">');
+                            $("#hiddensem").attr("value", response.sem);
+                            $("#hiddenzad").attr("value", response.zad);
                             // alert('it worked');
                             // alert(response.search_output);
                         },
@@ -208,11 +225,59 @@
                             console.log(response.responseJSON.errors)
                         }
                     });
+            }
+
+            $(document).ready(function () {
+                // catch the form's submit event
+                $('#physform').submit(function() {
+                    fuckingsearch()
     
                     return false;
                 });
             })
+
+
+        // FILE UPLOAD FORM
+            $(document).ready(function () {
+                // catch the form's submit event
+                $('#fileuploadform').submit(function() {
+                    event.preventDefault();
+                    var form = $('#fileuploadform')[0];
+                    var data = new FormData(form);
+                    // jQuery.each(jQuery('#fileinput')[0].files, function(i, file) {
+                    //     data.append('file-'+i, file);
+                    // });
+                    // create an AJAX call
+                    $.ajax({
+                        url: "{% url 'uploadfuck' %}",
+                        data: data, // get the form data
+                        // contentType: "multipart/form-data",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: "POST",
+                        enctype: 'multipart/form-data',
+                        // on success
+                        success: function(response) {
+                            $("#inputGroupSelect04").attr("value", response.sem);
+                            $("#physnumber").attr("value", response.zad);
+                            fuckingsearch()
+                            // alert('it worked');
+                            // alert(response.search_output);
+                        },
+                        // on error
+                        error: function(response) {
+                            alert('it didnt work');
+                            // alert the error if any error occured
+                            console.log(response.responseJSON.errors)
+                        }
+                    });
+
+                    return false;
+                });
+            })
         </script>
+
         {% endblock javascript %}
 
 
