@@ -45,7 +45,7 @@ def phys(request):
     output_list = asyncio.run(fetch(url))
     output = output_list[0]
 
-    image_url = 'https://mipt.one/mediafiles/imgbank/' + str(zad) + '.jpg'
+    image_url = '/mediafiles/imgbank/' + str(sem) + '/' + str(zad) + '.jpg'
     # image_url = '/mediafiles/imgbank/8.51.jpg'
 
 
