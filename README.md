@@ -22,9 +22,13 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 
 ---
 
-# TODO:
+## TODO:
  
+- make a bootstrap row with general info and links to contribute
+- focus on populating with phys images for 2nd and 4th semester
 
+
+---
 
 ### A note on system managment
 
