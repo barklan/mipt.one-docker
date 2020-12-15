@@ -24,8 +24,14 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 
 ## TODO:
  
-- make a bootstrap row with general info and links to contribute
+- remove link underline in navbar
+- add links to pdf's with tasks and koryavov (ocr all beforehand and don't forget to mention the year)
 - focus on populating with phys images for 2nd and 4th semester
+- make a bootstrap row with general info and links to contribute
+- a vk community
+
+- make a degree in antiplag
+- migrate to POST to support limit up to 5000 characters (google translate limit)
 
 
 ---
