@@ -138,7 +138,7 @@
                                 <option name='sem' value=3 >Электро</option>
                                 <option name='sem' value=4 >Оптика</option>
                                 <option name='sem' value=5 >Атомная</option>
-                                <option name='sem' value=6 >Лабы (пока не робит)</option>
+                                <!-- <option name='sem' value=6 >Лабы (пока не робит)</option> -->
                             </select>
 
                             <input id="physnumber" type="number" step="any" name="zad" value="" class="form-control" aria-label="Text input with 2 dropdown buttons" placeholder="номер">
@@ -290,17 +290,17 @@
                             div = document.getElementById("uploadformdiv");
                             soldiv = document.getElementById("solutiondiv");
 
-                            if (response.code404 == '1') {
+                            if (response.code404 == 1) {
                                 div.style["display"] = "block";
                                 soldiv.style["display"] = "none";
                             }
 
-                            if (response.code404 == '0') {
+                            if (response.code404 == 0) {
                                 div.style["display"] = "none";
                                 soldiv.style["display"] = "block";
                             }
 
-                            if (response.wrong_input == '1') {
+                            if (response.wrong_input == 1) {
                                 div.style["display"] = "none";
                                 soldiv.style["display"] = "none";
                             }

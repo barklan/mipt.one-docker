@@ -44,10 +44,14 @@ ln -s /var/lib/docker/volumes/miptonedocker_static_volume/_data /home/docker/mip
 
 ---
 
+
 ## TODO:
  
 80% stuff:
 
+- make a robust logic for multiple images for one problem (start with a limit of two)
+- make a backend logic for limiting files and keep upload form open (greyed out?)
+- make a telegram bot accepting and sending photos
 - focus on populating with phys images for 2nd and 4th semester
 - a vk community
 
@@ -62,3 +66,8 @@ ln -s /var/lib/docker/volumes/miptonedocker_static_volume/_data /home/docker/mip
 
 
 ---
+
+
+kewords:
+
+moodle mipt, в помощь раздолбаю, викимипт
