@@ -13,8 +13,9 @@
 		<meta name="referrer" content="none">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
@@ -23,6 +24,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
+        <script src="https://www.google.com/recaptcha/api.js?render=6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk"></script>
 
 
 		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -86,12 +88,12 @@
            
 			<div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/antiplag/">АнтиПлагиат</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="/physics/">Банк задач по физике</a>
-                  </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="/physics/">Банк задач по физике</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/antiplag/">АнтиПлагиат</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -121,9 +123,9 @@
 		<div class="row" id="mainrows"> <!-- 4 колонны-->
 		
 	
-		<div class="col-md-2 col-md-3"> <!-- 1 colomn-->
+		<div class="col-sm-12 col-md-4 col-lg-3"> <!-- 1 colomn-->
             
-            <div class="row-sm-3" style="background-color: #f2f2f2;">
+            <div class="row-sm-3" style="background-color: #f2f2f2; position: sticky; top: 78px;">
             
                 <ul>
 
@@ -132,15 +134,15 @@
                         <div class="input-group">
                             <select name='sem' class="form-select btn-secondary" id="inputGroupSelect04" aria-label="Example select with button addon">
                                 <option name='sem' value=1 selected>Механика</option>
-                                <option name='sem' value=2 >Термодинамика</option>
-                                <option name='sem' value=3 >Электричество</option>
+                                <option name='sem' value=2 >Термо</option>
+                                <option name='sem' value=3 >Электро</option>
                                 <option name='sem' value=4 >Оптика</option>
-                                <option name='sem' value=5 >Атомная физика</option>
+                                <option name='sem' value=5 >Атомная</option>
                                 <option name='sem' value=6 >Лабы (пока не робит)</option>
                             </select>
 
                             <input id="physnumber" type="number" step="any" name="zad" value="" class="form-control" aria-label="Text input with 2 dropdown buttons" placeholder="номер">
-                            <button type="submit" value="Искать" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                            <button type="submit" value="Искать" class="btn btn-outline-secondary"><i class="fa fa-search"></i></button>
                         </div>
                         </form>
 
@@ -155,7 +157,7 @@
             </div>
             
             <div id="uploadformdiv" class="row-sm-3" style="background-color: #f2f2f2; display: none">
-            <span class="boxtitle2">Нет решения? Выложи своё!</span>
+            <span class="boxtitle2">Выложи своё решение! (jpg 1MB max)</span>
 			<ul>
 				<li id='imageuploadid' style='margin-right:0px; margin-left:-32px'>
 
@@ -165,6 +167,7 @@
                         {% csrf_token %}
                         <input type="hidden" id="hiddensem" name="semup" value="1">
                         <input type="hidden" id="hiddenzad" name="zadup" value="1338">
+                        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 
                         <div class="input-group">
                             <input type="file" class="form-control" id="fileinput" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="image_file">
@@ -181,13 +184,74 @@
                     {% endblock %}
 
                 </li>
+
+                <li>
+                    <!-- <p style="padding:6px" id="uploadout" style="display: none;">Это не подходящее фото</p> -->
+                </li>
                 
 			</ul>
-			</div>
+            </div>
+            
+
+            <div class="row-sm-3" id="statsdiv" style="background-color: #f2f2f2;">
+                <!-- <span class="boxtitle2">Решено задач:</span> -->
+                <ul>
+                    <li>
+                        <table class="table table-hover table-borderless table-sm">
+                            <caption>Cайт защищен reCAPTCHA и не только, попытки сломать приветствуются</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Реш.</th>
+                                <th scope="col">из</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-end">
+                              <tr>
+                                <th scope="row">Механика</th>
+                                <td>{{ count1 }}</td>
+                                <td>{{ total1 }}</td>
+                                <td>{{ coverage1 }}%</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Термо</th>
+                                <td>{{ count2 }}</td>
+                                <td>{{ total2 }}</td>
+                                <td>{{ coverage2 }}%</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Электро</th>
+                                <td>{{ count3 }}</td>
+                                <td>{{ total3 }}</td>
+                                <td>{{ coverage3 }}%</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Оптика</th>
+                                <td>{{ count4 }}</td>
+                                <td>{{ total4 }}</td>
+                                <td>{{ coverage4 }}%</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Атомная</th>
+                                <td>{{ count5 }}</td>
+                                <td>{{ total5 }}</td>
+                                <td>{{ coverage5 }}%</td>
+                              </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- <p id="recaptchawarning">
+                            Cайт защищен reCAPTCHA и не только, попытки сломать приветствуются
+                        </p> -->
+                    </li>
+                </ul>
+            </div>
+
 
 		</div> <!-- /1 colomn-->
 		
-		<div class="col-md-8 col-md-9"> <!-- 2 colomn-->
+		<div class="col-sm-12 col-md-8 col-lg-9"> <!-- 2 colomn-->
 
             <div id="solutiondiv" class="row-sm-3" style="background-color: #f2f2f2; display: none;"><span class="boxtitle3">Решение</span>
                 <ul>
@@ -205,7 +269,8 @@
         
         
         {% block javascript %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+        <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk"></script> -->
     
 
         <!-- SEARCH FORM -->
@@ -226,18 +291,18 @@
                             soldiv = document.getElementById("solutiondiv");
 
                             if (response.code404 == '1') {
-                                div.style["display"] = "block"
-                                soldiv.style["display"] = "none"
+                                div.style["display"] = "block";
+                                soldiv.style["display"] = "none";
                             }
 
                             if (response.code404 == '0') {
-                                div.style["display"] = "none"
-                                soldiv.style["display"] = "block"
+                                div.style["display"] = "none";
+                                soldiv.style["display"] = "block";
                             }
 
                             if (response.wrong_input == '1') {
-                                div.style["display"] = "none"
-                                soldiv.style["display"] = "none"
+                                div.style["display"] = "none";
+                                soldiv.style["display"] = "none";
                             }
                             // alert('it worked');
                             // alert(response.search_output);
@@ -264,38 +329,50 @@
         // FILE UPLOAD FORM
             $(document).ready(function () {
                 // catch the form's submit event
-                $('#fileuploadform').submit(function() {
+                $('#fileuploadform').submit(function(event) {
                     event.preventDefault();
-                    var form = $('#fileuploadform')[0];
-                    var data = new FormData(form);
-                    // jQuery.each(jQuery('#fileinput')[0].files, function(i, file) {
-                    //     data.append('file-'+i, file);
-                    // });
-                    // create an AJAX call
-                    $.ajax({
-                        url: "{% url 'uploadfuck' %}",
-                        data: data, // get the form data
-                        // contentType: "multipart/form-data",
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        method: "POST",
-                        enctype: 'multipart/form-data',
-                        // on success
-                        success: function(response) {
-                            $("#inputGroupSelect04").attr("value", response.sem);
-                            $("#physnumber").attr("value", response.zad);
-                            fuckingsearch()
-                            // alert('it worked');
-                            // alert(response.search_output);
-                        },
-                        // on error
-                        error: function(response) {
-                            alert('it didnt work');
-                            // alert the error if any error occured
-                            console.log(response.responseJSON.errors)
-                        }
+                    grecaptcha.ready(function() {
+                        grecaptcha.execute('6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk', {action: 'submit'}).then(function(token) {
+                            $("#recaptchaResponse").attr("value", token);
+                            var form = $('#fileuploadform')[0];
+                            var data = new FormData(form);
+                            // jQuery.each(jQuery('#fileinput')[0].files, function(i, file) {
+                            //     data.append('file-'+i, file);
+                            // });
+                            // create an AJAX call
+                            $.ajax({
+                                url: "{% url 'uploadfuck' %}",
+                                data: data, // get the form data
+                                // contentType: "multipart/form-data",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                method: "POST",
+                                enctype: 'multipart/form-data',
+                                // on success
+                                success: function(response) {
+                                    // upout = document.getElementById("uploadout");
+                                    // if (response.diditwork == 0) {
+                                    //     upout.style["display"] = "block";
+                                    // } else {
+                                    // upout.style["display"] = "none";
+                                    $("#inputGroupSelect04").attr("value", response.sem);
+                                    $("#physnumber").attr("value", response.zad);
+                                    fuckingsearch()
+                                        // alert('it worked');
+                                        // alert(response.search_output);
+                                    // }
+                                },
+                                // on error
+                                error: function(response) {
+                                    alert('it didnt work');
+                                    // alert the error if any error occured
+                                    console.log(response.responseJSON.errors)
+                                }
+                            });
+                        });
                     });
+
 
                     return false;
                 });

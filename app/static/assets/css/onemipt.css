@@ -1,8 +1,10 @@
-			body {color:000;background-color:#ccc;font-family:sans-serif,Helvetica,Arial;padding:0;margin:0;font-size:110%}
-			a:link {color:#20207f;text-decoration:none}
+			body {color:000;background-color:#ccc;font-family:sans-serif,Helvetica,Arial;padding:0;margin:0;font-size:105%}
+			/* a:link {color:#20207f;text-decoration:none} */
+			a:link {color:#212529;text-decoration:none}
 			a:hover {color:#20207f;text-decoration:underline}
 			a:active {color:#20207f;text-decoration:none}
-			a:visited {color:#20207f;text-decoration:none}
+			/* a:visited {color:#20207f;text-decoration:none} */
+			a:visited {color:#212529;text-decoration:none}
 			a.clearnet:link {color:#666666;text-decoration:none}
 			a.clearnet:hover {color:#666666;text-decoration:underline}
 			a.clearnet:active {color:#666666;text-decoration:none}

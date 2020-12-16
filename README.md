@@ -20,21 +20,6 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 
 > Check out the [post](https://testdriven.io/dockerizing-django-with-postgres-gunicorn-and-nginx) which helped a lot
 
----
-
-## TODO:
- 
-- remove link underline in navbar
-- add links to pdf's with tasks and koryavov (ocr all beforehand and don't forget to mention the year)
-- focus on populating with phys images for 2nd and 4th semester
-- make a bootstrap row with general info and links to contribute
-- a vk community
-
-- make a degree in antiplag
-- migrate to POST to support limit up to 5000 characters (google translate limit)
-
-
----
 
 ### A note on system managment
 
@@ -51,3 +36,29 @@ The new volume API adds a useful command that lets you identify dangling volumes
 
 
 /var/lib/docker/volumes/miptonedocker_media_volume/_data/imgbank/8.51.jpg
+
+### A note on symbolic links
+
+ln -s /var/lib/docker/volumes/miptonedocker_static_volume/_data /home/docker/mipt.one-docker
+
+
+---
+
+## TODO:
+ 
+80% stuff:
+
+- focus on populating with phys images for 2nd and 4th semester
+- a vk community
+
+20%:
+
+- html to static
+- make a bootstrap row with general info and links to contribute
+- migrate to POST to support limit up to 5000 characters (google translate limit)
+- add links to pdf's with tasks and koryavov (ocr all beforehand and don't forget to mention the year)
+- remove link underline in navbar
+- make a degree in antiplag
+
+
+---

@@ -8,6 +8,8 @@ import asyncio
 import re
 import requests
 import os
+import json
+import urllib.request
 
 
 from django.contrib.auth.models import User
@@ -20,12 +22,92 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
 
+COVERAGE_TOTALS = {
+    1: [26, 87, 79, 142, 78, 18, 189, 110, 198, 85, 35, 98, 62, 52],
+    '1_year': '2016',
+    2: [103, 24, 52, 85, 76, 88, 83, 78, 50, 159, 90, 64],
+    '2_year': '2016',
+    3: [30, 53, 84, 38, 45, 54, 97, 103, 65, 93, 57, 104],
+    '3_year': '2018',
+    4: [60, 45, 41, 26, 32, 64, 83, 138, 80, 78, 128],
+    '4_year': '2018',
+    5: [52, 54, 52, 55, 57, 80, 65, 69, 43, 98],
+    '5_year': '2009',
+}
+
+
+CAPTCHASECRETKEY = os.environ.get('CAPTCHASECRETKEY', 'none'),
+
+
 def phgo(request):
-    return render(request, "physics/index.html")
+
+
+    def countfiles(dir):
+        return len([name for name in os.listdir(dir) if os.path.isfile(os.path.join(dir, name))])
+    
+
+    len([name for name in os.listdir('.') if os.path.isfile(name)])
+    fps = ['/home/app/web/mediafiles/imgbank/' + str(i) + '/' for i in range(1, 6)]
+    counts = [countfiles(fps[i]) for i in range(5)]
+    count1, count2, count3, count4, count5 = counts
+    totals = [sum(COVERAGE_TOTALS[i]) for i in range(1, 6)]
+    total1, total2, total3, total4, total5 = totals
+    coverages = [round(counts[i] / totals[i] * 100, 1) for i in range(5)]
+    coverage1, coverage2, coverage3, coverage4, coverage5 = coverages
+
+    context = {
+        'count1': count1,
+        'total1': total1,
+        'coverage1': coverage1,
+        'count2': count2,
+        'total2': total2,
+        'coverage2': coverage2,
+        'count3': count3,
+        'total3': total3,
+        'coverage3': coverage3,
+        'count4': count4,
+        'total4': total4,
+        'coverage4': coverage4,
+        'count5': count5,
+        'total5': total5,
+        'coverage5': coverage5,
+    }
+    return render(request, 'physics/index.html', context)
 
 
 def image_upload_fuck(request):
+
+
+    def captchaisgood():
+        # get the token submitted in the form
+        recaptcha_response = request.POST.get('recaptcha_response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        payload = {
+            'secret': CAPTCHASECRETKEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(payload).encode()
+        req = urllib.request.Request(url, data=data)
+
+        # verify the token submitted with the form is valid
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+
+        if result["score"] < 0.5:
+            return False
+        else:
+            return True
+        # result will be a dict containing 'contact' and 'action'.
+        # it is important to verify both
+
+
     if request.method == "POST" and request.FILES["image_file"]:
+
+        if not captchaisgood:
+            return redirect('https://mipt.one/staticfiles/old/index.html')
+        else:
+            pass
+
         image_file = request.FILES["image_file"]
         semup = str(request.POST['semup'])
         zadup = str(request.POST['zadup'])
@@ -35,12 +117,9 @@ def image_upload_fuck(request):
             fs = FileSystemStorage(location=folder)
             name_to_save = zadup + '.jpg'
             filename = fs.save(name_to_save, image_file)
-            diditwork = 'Решение выложено'
-            errorcode = 0
-            
+            diditwork = 1
         except:
-            diditwork = 'It didnt work. Fuck you'
-            errorcode = 1
+            diditwork = 0
             # return redirect('https://mipt.one/')
 
 
@@ -49,7 +128,6 @@ def image_upload_fuck(request):
             'sem': semup,
             'zad': zadup,
             'diditwork': diditwork,
-            'errorcode': errorcode
         }
         return JsonResponse(response)
 
