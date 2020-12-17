@@ -63,9 +63,9 @@ COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
-# RUN pip install git+https://github.com/ssut/py-googletrans.git@feature/temp-fix-for-missing-tkk-tokens
+RUN pip install git+https://github.com/ssut/py-googletrans.git@feature/rpc
 # RUN pip install googletrans
-RUN pip install googletrans==4.0.0rc1
+# RUN pip install googletrans==4.0.0rc1
 
 # copy entrypoint-prod.sh
 COPY ./entrypoint.prod.sh $APP_HOME
