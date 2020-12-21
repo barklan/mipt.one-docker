@@ -259,6 +259,10 @@
 
 
                     </li>
+                    <li id="solutionimage2" style="display: none;">
+
+
+                    </li>
                 </ul>
             </div>
            
@@ -282,13 +286,16 @@
                         // on success
                         success: function(response) {
                             $("#physout").html(response.search_output);
-                            $("#solutionimage").html('<img src="'+ response.image_url + '" class="img-fluid" alt="No image... for now">');
+                            $("#solutionimage").html('<img src="'+ response.image_url + '.jpg" class="img-fluid" alt="No image... for now">');
+                            $("#solutionimage2").html('<img src="'+ response.image_url + '-2.jpg" class="img-fluid" alt="No second image... for now">');
 
                             $("#hiddensem").attr("value", response.sem);
                             $("#hiddenzad").attr("value", response.zad);
 
                             div = document.getElementById("uploadformdiv");
                             soldiv = document.getElementById("solutiondiv");
+                            image2 = document.getElementById("solutionimage2");
+                            image2.style["display"] = "none";
 
                             if (response.code404 == 1) {
                                 div.style["display"] = "block";
@@ -298,6 +305,9 @@
                             if (response.code404 == 0) {
                                 div.style["display"] = "none";
                                 soldiv.style["display"] = "block";
+                                if (response.second_file == 1) {
+                                    image2.style["display"] = "block";
+                                }
                             }
 
                             if (response.wrong_input == 1) {

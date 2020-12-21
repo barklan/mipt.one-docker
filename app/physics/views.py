@@ -38,6 +38,7 @@ def phys(request):
     kor_output = 'none'
     wrong_input = 0
     code404 = 1
+    second_file = 0
     image_url = 'https://mipt.one/staticfiles/images/mipt_logo.png'
     sem = str(request.GET.get('sem', None))
     zad = str(request.GET.get('zad', None))
@@ -91,9 +92,12 @@ def phys(request):
         except:
             kor_output = 'external server down'
 
-        image_url = '/mediafiles/imgbank/' + sem + '/' + zad + '.jpg'
+        image_url_naked = '/mediafiles/imgbank/' + sem + '/' + zad
+        image_url = image_url_naked + '.jpg'
         if os.path.isfile('/home/app/web' + image_url):
             code404 = 0
+            if os.path.isfile('/home/app/web' + image_url_naked + '-2.jpg'):
+                second_file = 1
         else:
             code404 = 1
     else:
@@ -105,8 +109,9 @@ def phys(request):
         'sem': sem,
         'zad': zad,
         'search_output': kor_output,
-        'image_url': image_url,
-        'code404' : code404
+        'image_url': image_url_naked,
+        'code404' : code404,
+        'second_file': second_file
     }
     return JsonResponse(response)
 
@@ -116,7 +121,7 @@ def phgo(request):
 
 
     def countfiles(dir):
-        return len([name for name in os.listdir(dir) if os.path.isfile(os.path.join(dir, name))])
+        return len([name for name in os.listdir(dir) if (os.path.isfile(os.path.join(dir, name)) and ('-' not in name))])
     
 
     fps = ['/home/app/web/mediafiles/imgbank/' + str(i) + '/' for i in range(1, 6)]

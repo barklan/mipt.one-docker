@@ -46,22 +46,9 @@ ln -s /var/lib/docker/volumes/miptonedocker_static_volume/_data /home/docker/mip
 
 
 ## TODO:
+
+[kanban](https://github.com/barklan/mipt.one-docker/projects/1)
  
-80% stuff:
-
-- make a robust logic for multiple images for one problem (start with a limit of two)
-- make a backend logic for limiting files and keep upload form open (greyed out?)
-- make a telegram bot accepting and sending photos
-- focus on populating with phys images for 2nd and 4th semester
-- a vk community
-
-20%:
-
-- html to static
-- make a bootstrap row with general info and links to contribute
-- migrate to POST to support limit up to 5000 characters (google translate limit)
-- add links to pdf's with tasks and koryavov (ocr all beforehand and don't forget to mention the year)
-- remove link underline in navbar
 - make a degree in antiplag
 
 
