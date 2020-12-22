@@ -51,6 +51,14 @@ services:
     volumes:
     - ./traefik:/etc/traefik
     - /var/run/docker.sock:/var/run/docker.sock:ro
+  aiogram:
+    build:
+      context: ./aiogram
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - web
 
 volumes:
   postgres_data:
