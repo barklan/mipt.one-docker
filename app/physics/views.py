@@ -129,8 +129,13 @@ def phgo(request):
     count1, count2, count3, count4, count5 = counts
     totals = [sum(COVERAGE_TOTALS[i]) for i in range(1, 6)]
     total1, total2, total3, total4, total5 = totals
-    coverages = [round(counts[i] / totals[i] * 100, 1) for i in range(5)]
+    coverages = [round(counts[i] / totals[i] * 100) for i in range(5)]
     coverage1, coverage2, coverage3, coverage4, coverage5 = coverages
+
+    # this is freedom percentage
+    global_total = sum(totals)
+    global_count = sum(counts)
+    freedom = round(global_count / global_total * 100)
 
     context = {
         'count1': count1,
@@ -148,6 +153,7 @@ def phgo(request):
         'count5': count5,
         'total5': total5,
         'coverage5': coverage5,
+        'freedom': freedom,
     }
     return render(request, 'physics/index.html', context)
 
