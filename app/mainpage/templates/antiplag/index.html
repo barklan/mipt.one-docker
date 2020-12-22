@@ -25,11 +25,13 @@
                             <label class="btn btn-outline-success" for="success-outlined">Мягкий режим</label>
                             <input type="radio" class="btn-check" name="antiplagmode" value='berserk' id="danger-outlined" autocomplete="off">
                             <label class="btn btn-outline-danger" for="danger-outlined">Берсерк</label>
+                            <input type="radio" class="btn-check" name="antiplagmode" value='synonym' id="synonym-outlined" autocomplete="off">
+                            <label class="btn btn-outline-secondary" for="synonym-outlined">Синонимизатор</label>
                                 
                             <div style="padding: 10px; visibility: hidden;" class="spinner-grow float-end" id="spinner" role="status"></div>
 
                             <div class="form-floating">
-                                <textarea class="form-control" name="inptext" placeholder="Leave a comment here" id="inputtext" style="height: 400px"></textarea>
+                                <textarea class="form-control" name="inptext" placeholder="Leave a comment here" id="inputtext" style="height: 500px"></textarea>
                                 <label for="floatingTextarea2">Вставляйте текст (до 5000 символов)</label>
                             </div>
                         </form>
@@ -139,10 +141,15 @@
                 $("#danger-outlined").click(function() {
                     fuckingdothis()
                 });
+                
+                $('#synonym-outlined').click(function() {
+                    fuckingdothis()
+                });
 
                 $('#inputtext').keyup(function() {
                     fuckingdothis()
                 });
+
             });
         </script>
         {% endblock javascript %}    

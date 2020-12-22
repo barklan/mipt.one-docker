@@ -4,6 +4,8 @@ from django.http import JsonResponse
 
 
 from googletrans import Translator
+import urllib.request
+import json
 
 
 def antiplagapi(request):
@@ -14,13 +16,31 @@ def antiplagapi(request):
 
     if antiplagmode == 'mild':
         langs = ['en', 'de', 'ru']
-    else:
+        translation = inputtext
+        for lang in langs:
+            translation = translator.translate(translation, dest=lang).text
+        output = translation
+    elif antiplagmode == 'berserk':
         langs = ['no', 'hi', 'en', 'fr', 'ru']
+        translation = inputtext
+        for lang in langs:
+            translation = translator.translate(translation, dest=lang).text
+        output = translation
+    elif antiplagmode == 'synonym':
+        url = 'https://rustxt.ru/api/index.php'
+        payload = {
+            'method': 'getSynText',
+            'text': inputtext,
+        }
+        data = urllib.parse.urlencode(payload).encode()
+        req = urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+        output = result['modified_text']
+    else:
+        output = 'SERVER ERROR'
 
-    translation = inputtext
-    for lang in langs:
-        translation = translator.translate(translation, dest=lang).text
-    output = translation
+
 
 
     response = {
