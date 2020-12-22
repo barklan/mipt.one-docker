@@ -3,10 +3,10 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from mainpage.views import mainpage
-from physics.views import phgo, redirect_view, image_upload_fuck, phys
+from mainpage.views import mainpage, phgo, antiplagpage
+from physics.views import redirect_view, image_upload_fuck, phys
 from upload.views import image_upload
-from antiplag.views import antiplagpage, antiplagapi
+from antiplag.views import antiplagapi
 
 
 urlpatterns = [

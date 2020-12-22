@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}MIPT.one - Антиплагиат{% endblock %}
+
+{% block navclassantiplag %}active{% endblock %}
+
+{% block real_content %}
+
+	<div class="container-fluid">
+		
+		<div class="row" id="mainrows"> <!-- 4 колонны-->
+		
+	
+		<div class="col-md-6 col-md-6"> <!-- 1 colomn-->
+            
+            <div class="row-sm-3" style="background-color: #f2f2f2;">
+            
+                <ul>
+
+                    <li style="margin-left:-30px; margin-right:0px;">
+                        <form method="POST" id="antiplagform">
+
+                            {% csrf_token %}
+                            <input type="radio" class="btn-check" name="antiplagmode" value='mild' id="success-outlined" autocomplete="off" checked>
+                            <label class="btn btn-outline-success" for="success-outlined">Мягкий режим</label>
+                            <input type="radio" class="btn-check" name="antiplagmode" value='berserk' id="danger-outlined" autocomplete="off">
+                            <label class="btn btn-outline-danger" for="danger-outlined">Берсерк</label>
+                                
+                            <div style="padding: 10px; visibility: hidden;" class="spinner-grow float-end" id="spinner" role="status"></div>
+
+                            <div class="form-floating">
+                                <textarea class="form-control" name="inptext" placeholder="Leave a comment here" id="inputtext" style="height: 400px"></textarea>
+                                <label for="floatingTextarea2">Вставляйте текст (до 5000 символов)</label>
+                            </div>
+                        </form>
+
+                        <!-- <p style="padding:6px" id="antiplagout"></p> -->
+
+
+                    <!-- <p style="padding:6px"> {{ search_output }} </p> -->
+                    </li>
+
+				</ul>
+
+            </div>
+            
+            <!-- <div class="row-sm-3" style="background-color: #f2f2f2;">
+			<ul>
+				<li><p>
+                Стабильно работает только при менее 5000 символов (примерно 2 страницы).
+
+                </li></p>
+                
+			</ul>
+			</div> -->
+
+		</div> <!-- /1 colomn-->
+		
+		<div class="col-md-6 col-md-6"> <!-- 2 colomn-->
+
+            <div class="row-sm-3" style="background-color: #f2f2f2;">
+                <!-- <span class="boxtitle3">Вывод</span> -->
+                <ul>
+                    <li id="antiplagout2">
+                    
+
+                    </li>
+                </ul>
+            </div>
+           
+		</div> <!-- /2 colomn-->
+
+	
+		</div> <!-- /4 колонны-->
+        
+        {% block javascript %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        {% load static %}
+        <script src="{% static 'assets/js/jquery.cookie.js' %}"></script>
+        
+        <script>
+            $(document).ready(function() {
+                var csrftoken = $.cookie('csrftoken');
+
+                function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+
+                // var ajaxRequest;
+                var ajaxRequest;
+                function fuckingdothis() {
+                    $('#spinner').css('visibility', 'visible');
+                    var value = $('#inputtext').val();
+                    var antiplagmode = $("form input[type='radio']:checked").val();
+                    // var mode = 
+                    // var form = $('#antiplagform')[0];
+                    // var data = new FormData(form)
+                    clearTimeout(ajaxRequest);
+                    ajaxRequest = setTimeout(function(sn) {
+                    $.ajax({
+                        data: '&inptext=' + value + '&antiplagmode=' + antiplagmode,
+                        dataType: 'json',
+                        url: "{% url 'antiplagapi' %}",
+                        // url: "{% url 'antiplagapi' %}",
+                        // data: data,
+                        // cache: false,
+                        // contentType: false,
+                        // processData: false,
+                        method: "POST",
+                        // enctype: 'mulipart/form-data',
+                        success: function(response) {
+                        // $('#antiplagout').html('ЛОГ: успех, режим: ' + response.antiplagmode);
+                        $('#antiplagout2').html(response.search_output);
+                        $('#spinner').css('visibility', 'hidden');
+                        },
+                        error: function(response) {
+                            // $('#antiplagout').html('ЛОГ: неуспешно');
+                            $('#antiplagout2').html('');
+                            $('#spinner').css('visibility', 'hidden');
+                            // alert('it didnt work');
+                            // alert the error if any error occured
+                        }
+                    });
+                    }, 1200, value);
+                }
+
+                $("#success-outlined").click(function() {
+                    fuckingdothis()
+                });
+                $("#danger-outlined").click(function() {
+                    fuckingdothis()
+                });
+
+                $('#inputtext').keyup(function() {
+                    fuckingdothis()
+                });
+            });
+        </script>
+        {% endblock javascript %}    
+    
+    </div>
+    
+{% endblock %}
