@@ -26,12 +26,11 @@ COVERAGE_TOTALS = {
 
 CAPTCHASECRETKEY = os.environ.get('CAPTCHASECRETKEY', 'none'),
 
-
 def phys(request):
     kor_output = 'none'
-    wrong_input = 0
-    code404 = 1
-    second_file = 0
+    wrong_input = False
+    image_found = False
+    second_file = False
     image_url = 'https://mipt.one/staticfiles/images/mipt_logo.png'
     image_url_naked = 'none'
     sem = str(request.GET.get('sem', None))
@@ -57,20 +56,20 @@ def phys(request):
 
     # MY validation checks:
     if ('.' not in zad) or (len(zad) > 6) or (not re.match(r'\d+\.\d+$', zad)):  # base check
-        wrong_input = 1
+        wrong_input = True
     else:
         zad1, zad2 = zad.split('.')
         zad1_int, zad2_int = int(zad1), int(zad2)
         if (zad1_int == 0) or (zad1_int > len(COVERAGE_TOTALS[int(sem)])):
-            wrong_input = 1
+            wrong_input = True
         elif (zad2_int == 0) or (zad2_int > COVERAGE_TOTALS[int(sem)][zad1_int - 1]):
-            wrong_input = 1
+            wrong_input = True
         else:
-            wrong_input = 0
+            wrong_input = False
 
         
 
-    if wrong_input == 0:
+    if wrong_input == False:
         try:
             output_list = asyncio.run(fetch(url))
             output = output_list[0]
@@ -80,7 +79,7 @@ def phys(request):
             elif re.match(r'.*не найдена', output):
                 kor_output = zad + ' нет в Корявове :('
             elif re.match(r'Укажите номер задачи корректно!', output):
-                wrong_input = 1
+                wrong_input = True
             else:
                 kor_output = ' '
         except:
@@ -89,22 +88,26 @@ def phys(request):
         image_url_naked = '/mediafiles/imgbank/' + sem + '/' + zad
         image_url = image_url_naked + '.jpg'
         if os.path.isfile('/home/app/web' + image_url):
-            code404 = 0
+            image_found = True
             if os.path.isfile('/home/app/web' + image_url_naked + '-2.jpg'):
-                second_file = 1
+                second_file = True
         else:
-            code404 = 1
+            image_found = False
+            kor_output = kor_output + '. Готового решения пока нет.'
+
+        sem_to_name = ['', 'Механика', 'Термодинамика', 'Электричесво', 'Оптика', 'Атомная']
+        kor_output = sem_to_name[int(sem)] + '. ' + kor_output
     else:
         kor_output = 'такой задачи нет'
 
-    
+
     response = {
         'wrong_input': wrong_input,
         'sem': sem,
         'zad': zad,
         'search_output': kor_output,
         'image_url': image_url_naked,
-        'code404' : code404,
+        'image_found' : image_found,
         'second_file': second_file
     }
     return JsonResponse(response)

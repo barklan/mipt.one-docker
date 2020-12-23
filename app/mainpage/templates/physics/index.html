@@ -11,9 +11,9 @@
 		<div class="row" id="mainrows"> <!-- 4 колонны-->
 		
 	
-		<div class="col-sm-12 col-md-4 col-lg-3"> <!-- 1 colomn-->
+		<div class="col-sm-12 col-md-4 col-lg-3" id="physfirstcol"> <!-- 1 colomn-->
             
-            <div class="row-sm-3" style="background-color: #f2f2f2; position: sticky; top: 78px;">
+            <div class="row-sm-3" id="physsearchdiv" style="background-color: #f2f2f2;">
             
                 <ul>
 
@@ -34,8 +34,7 @@
                         </div>
                         </form>
 
-                        <p style="padding:6px" id="physout">Поиcк по задачам</p>
-
+                        <p style="padding: 8px;" id="physout">Поиcк по задачам</p>
 
                     <!-- <p style="padding:6px"> {{ search_output }} </p> -->
                     </li>
@@ -129,10 +128,17 @@
                             </tbody>
                         </table>
 
-                        <p id="below">
-                            <a href="t.me/miptone_bot">Телеграм бот</a>
-                        </p>
+
                     </li>
+                </ul>
+            </div>
+
+            <div class="row-sm-3" id="physinfodiv" style="background-color: #f2f2f2;">
+                <ul>
+                    <li><p style="padding: 6px;">
+                        <a href="https://t.me/miptone_bot" rel="noreferrer" target="_blank" data-toggle="tooltip" data-placement="top" title="В разработке...">Телеграм бот</a> | 
+                        <a href="https://drive.google.com/drive/folders/1zB4E5HoILlMkiovoZR6gN2HZBMItlU1E?usp=sharing" rel="noreferrer" target="_blank">Задачник и Корявов</a>
+                    </p></li>
                 </ul>
             </div>
 
@@ -184,20 +190,20 @@
                             image2 = document.getElementById("solutionimage2");
                             image2.style["display"] = "none";
 
-                            if (response.code404 == 1) {
+                            if (response.image_found == false) {
                                 div.style["display"] = "block";
                                 soldiv.style["display"] = "none";
                             }
 
-                            if (response.code404 == 0) {
+                            if (response.image_found == true) {
                                 div.style["display"] = "none";
                                 soldiv.style["display"] = "block";
-                                if (response.second_file == 1) {
+                                if (response.second_file == true) {
                                     image2.style["display"] = "block";
                                 }
                             }
 
-                            if (response.wrong_input == 1) {
+                            if (response.wrong_input == true) {
                                 div.style["display"] = "none";
                                 soldiv.style["display"] = "none";
                             }
