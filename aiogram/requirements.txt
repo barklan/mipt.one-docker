@@ -3,3 +3,6 @@ vk_api
 beautifulsoup4
 markovify
 spacy
+numpy
+scikit-learn==0.23.2
+Pillow

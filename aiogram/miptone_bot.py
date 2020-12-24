@@ -10,7 +10,11 @@ import random
 import json
 import urllib.request
 import ssl
+import pickle
 ssl._create_default_https_context = ssl._create_unverified_context
+
+
+from nn_module import load_model, get_model_output
 
 
 import logging
@@ -23,6 +27,22 @@ logger.setLevel(logging.DEBUG)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 sem_dict = {}
+blacklist_path = '/usr/src/aiogram/mediafiles/imgbank/blacklist.pkl'
+
+global blacklist
+if os.path.isfile(blacklist_path):
+    with open(blacklist_path, 'rb') as f:
+        blacklist = pickle.load(f)
+else:
+    blacklist = set()
+    with open(blacklist_path, 'wb') as f:
+        pickle.dump(blacklist, f)
+
+
+def add_to_blacklist(user_id):
+    blacklist.add(user_id)
+    with open(blacklist_path, 'wb') as f:
+        pickle.dump(blacklist, f)
 
 
 def change_sem_keyboard():
@@ -70,10 +90,10 @@ async def all_msg_handler(message: types.Message):
             else:
                 pass
         elif result['wrong_input'] == False:
-            await bot.send_message(
-                message.from_user.id, 
-                'Отправьте свое решение 🤏',
-            )
+            if message.from_user.id not in blacklist:
+                await bot.send_message(message.from_user.id, 'Отправьте свое решение 🤏')
+            else:
+                pass
         else:
             pass
     else:
@@ -105,7 +125,9 @@ async def photo(message: types.Message):
     response = urllib.request.urlopen(req)
     result = json.loads(response.read().decode())
 
-    if message.caption is None:
+    if message.from_user.id in blacklist:
+        await bot.send_message(message.from_user.id, 'Вы находитесь в черном списке. Ваши фото не принимаются.')
+    elif message.caption is None:
         await bot.send_message(message.from_user.id, 'Фотку нужно подписать номером задачи.')
     else:
         if (result['wrong_input'] == True):
@@ -113,9 +135,18 @@ async def photo(message: types.Message):
         elif (result['wrong_input'] == False):
             if (result['image_found'] == False):
                 file_id = message.photo[-1].file_id
-                await bot.download_file_by_id(file_id, f'/usr/src/aiogram/mediafiles/imgbank/{sem}/{message.caption}.jpg')
-                emo_list = ['👍', '😁', '😊', '🥰', '😍', '😗', '😚', '🤗', '😎', '😻']
-                await bot.send_message(message.from_user.id, 'Решение выложено. Спасибо ' + random.choice(emo_list))
+
+                temp_path = f'/usr/src/aiogram/mediafiles/imgbank/666/{message.caption}.jpg'
+                await bot.download_file_by_id(file_id, temp_path)
+                image_is_good = get_model_output(model_ft, temp_path)
+                if image_is_good:
+                    await bot.download_file_by_id(file_id, f'/usr/src/aiogram/mediafiles/imgbank/{sem}/{message.caption}.jpg')
+                    emo_list = ['👍', '😁', '😊', '🥰', '😍', '😗', '😚', '🤗', '😎', '😻']
+                    await bot.send_message(message.from_user.id, 'Решение выложено. Спасибо ' + random.choice(emo_list))
+                else:
+                    await bot.send_message(message.from_user.id, 'Нейронная сеть отвергла это изображение.\nА вы думали просто будет дикпики выкладывать? :|')
+                    add_to_blacklist(message.from_user.id)
+                os.remove(temp_path)
             else:
                 await bot.send_message(message.from_user.id, 'Решение к этой задаче уже есть.')
         else:
@@ -136,4 +167,6 @@ async def echo(message: types.Message):
 if __name__ == '__main__':
     global model
     model = quote.fit_model()
+    global model_ft
+    model_ft = load_model('saved_model')
     executor.start_polling(dp, skip_updates=True)
