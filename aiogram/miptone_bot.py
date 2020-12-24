@@ -109,7 +109,7 @@ async def all_msg_handler(message: types.Message):
                 await bot.send_photo(id, base_img_url + '.jpg')
         elif result['wrong_input'] == False:
             if id not in blacklist:
-                await bot.send_message(id, 'Отправь мне свое решение 🤏')
+                await bot.send_message(id, 'Отправь мне свое решение одной фоткой 🤏')
             else:
                 pass
         else:
