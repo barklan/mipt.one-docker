@@ -49,9 +49,6 @@ ln -s /var/lib/docker/volumes/miptonedocker_media_volume /home/docker/mipt.one-d
 
 [kanban](https://github.com/barklan/mipt.one-docker/projects/1)
  
-- make a degree in antiplag
-
-
 ---
 
 
