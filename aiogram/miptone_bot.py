@@ -115,17 +115,20 @@ async def photo(message: types.Message):
     response = urllib.request.urlopen(req)
     result = json.loads(response.read().decode())
 
-    if (result['wrong_input'] == True):
-        await bot.send_message(message.from_user.id, 'Вы неправильно подписали фотку :(')
-    elif (result['wrong_input'] == False):
-        if (result['image_found'] == False):
-            file_id = message.photo[-1].file_id
-            await bot.download_file_by_id(file_id, f'/usr/src/aiogram/mediafiles/imgbank/{sem}/{message.caption}.jpg')
-            await bot.send_message(message.from_user.id, 'Спасибо :)')
-        else:
-            await bot.send_message(message.from_user.id, 'Решение к этой задаче уже есть.')
+    if message.caption is None:
+        await bot.send_message(message.from_user.id, 'Фотку нужно подписать номером задачи.')
     else:
-        pass
+        if (result['wrong_input'] == True):
+            await bot.send_message(message.from_user.id, 'Вы неправильно подписали фотку :(')
+        elif (result['wrong_input'] == False):
+            if (result['image_found'] == False):
+                file_id = message.photo[-1].file_id
+                await bot.download_file_by_id(file_id, f'/usr/src/aiogram/mediafiles/imgbank/{sem}/{message.caption}.jpg')
+                await bot.send_message(message.from_user.id, 'Спасибо :)')
+            else:
+                await bot.send_message(message.from_user.id, 'Решение к этой задаче уже есть.')
+        else:
+            pass
 
 
 @dp.message_handler()

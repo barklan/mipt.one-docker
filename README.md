@@ -39,8 +39,8 @@ The new volume API adds a useful command that lets you identify dangling volumes
 
 ### A note on symbolic links
 
-ln -s /var/lib/docker/volumes/miptonedocker_static_volume/_data /home/docker/mipt.one-docker
-
+ln -s /var/lib/docker/volumes/miptonedocker_static_volume /home/docker/mipt.one-docker
+ln -s /var/lib/docker/volumes/miptonedocker_media_volume /home/docker/mipt.one-docker
 
 ---
 
