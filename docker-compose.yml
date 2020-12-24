@@ -9,9 +9,6 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      # - type: bind
-      #   source: ./imgbank
-      #   target: /home/app/web/mediafiles/imgbank
     expose:
       - 8000
     ports:
@@ -20,8 +17,6 @@ services:
       - ./.env.prod
     depends_on:
       - db
-    # networks:
-    #   - aiogramnet
   db:
     image: postgres:12.0-alpine
     volumes:
@@ -33,12 +28,6 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
-      # - type: bind
-      #   source: ./imgbank
-      #   target: /home/app/web/mediafiles/imgbank
-      #   RW: true
-    # ports:
-    #   - "80:80"
     depends_on:
       - web
     labels:
@@ -61,10 +50,6 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./.env.prod
-    # cap_add:
-    #   - 'NET_ADMIN'
-    # networks:
-    #   - aiogramnet
     volumes:
       - media_volume:/usr/src/aiogram/mediafiles
     depends_on:
@@ -74,6 +59,3 @@ volumes:
   postgres_data:
   static_volume:
   media_volume:
-
-# networks:
-#   aiogramnet:
