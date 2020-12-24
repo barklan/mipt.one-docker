@@ -31,6 +31,7 @@ def phys(request):
     wrong_input = False
     image_found = False
     second_file = False
+    third_file = False
     image_url = 'https://mipt.one/staticfiles/images/mipt_logo.png'
     image_url_naked = 'none'
     sem = str(request.GET.get('sem', None))
@@ -91,6 +92,8 @@ def phys(request):
             image_found = True
             if os.path.isfile('/home/app/web' + image_url_naked + '-2.jpg'):
                 second_file = True
+                if os.path.isfile('/home/app/web' + image_url_naked + '-3.jpg'):
+                    third_file = True
         else:
             image_found = False
             kor_output = kor_output + '. Готового решения пока нет.'
@@ -108,7 +111,8 @@ def phys(request):
         'search_output': kor_output,
         'image_url': image_url_naked,
         'image_found' : image_found,
-        'second_file': second_file
+        'second_file': second_file,
+        'third_file': third_file,
     }
     return JsonResponse(response)
 

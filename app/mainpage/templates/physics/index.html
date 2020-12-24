@@ -154,6 +154,10 @@
 
 
                     </li>
+                    <li id="solutionimage3" style="display: none;">
+
+
+                    </li>
                 </ul>
             </div>
            
@@ -178,6 +182,7 @@
                             $("#physout").html(response.search_output);
                             $("#solutionimage").html('<img src="'+ response.image_url + '.jpg" class="img-fluid" alt="No image... for now">');
                             $("#solutionimage2").html('<img src="'+ response.image_url + '-2.jpg" class="img-fluid" alt="No second image... for now">');
+                            $("#solutionimage3").html('<img src="'+ response.image_url + '-3.jpg" class="img-fluid" alt="No second image... for now">');
 
                             $("#hiddensem").attr("value", response.sem);
                             $("#hiddenzad").attr("value", response.zad);
@@ -186,6 +191,8 @@
                             soldiv = document.getElementById("solutiondiv");
                             image2 = document.getElementById("solutionimage2");
                             image2.style["display"] = "none";
+                            image3 = document.getElementById("solutionimage3");
+                            image3.style["display"] = "none";
 
                             if (response.image_found == false) {
                                 div.style["display"] = "block";
@@ -197,6 +204,9 @@
                                 soldiv.style["display"] = "block";
                                 if (response.second_file == true) {
                                     image2.style["display"] = "block";
+                                    if (response.third_file == true) {
+                                        image3.style["display"] = "block";
+                                    }
                                 }
                             }
 
