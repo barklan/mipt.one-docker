@@ -2,16 +2,18 @@
 # from tgbottoken import TGBOTTOKEN as API_TOKEN
 
 # this is for production
+import os
 API_TOKEN = os.environ.get('TGBOTTOKEN', 'none')
 
 import logging
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types.message import ContentType
-import os
 import re
 import json
 import urllib.request
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 logging.basicConfig(level=logging.INFO)
@@ -64,7 +66,7 @@ async def all_msg_handler(message: types.Message):
     if message.from_user.id in sem_dict:
         sem = sem_dict[message.from_user.id]
         zad = message.text
-        url = f'https://mipt.one/phys/?sem={sem}&zad={zad}'
+        url = f'http://web:8000/phys/?sem={sem}&zad={zad}'
         req = urllib.request.Request(url)
         response = urllib.request.urlopen(req)
         result = json.loads(response.read().decode())
@@ -81,7 +83,7 @@ async def all_msg_handler(message: types.Message):
         else:
             await bot.send_message(
                 message.from_user.id, 
-                'Вы можете отправить в ответ',
+                'Вы можете отправить своё решение',
             )
     else:
         keyboard_markup = types.InlineKeyboardMarkup(row_width=3)
@@ -108,7 +110,7 @@ async def photo(message: types.Message):
     '''
     sem = sem_dict[message.from_user.id]
     zad = message.caption
-    url = f'https://mipt.one/phys/?sem={sem}&zad={zad}'
+    url = f'http://web:8000/phys/?sem={sem}&zad={zad}'
     req = urllib.request.Request(url)
     response = urllib.request.urlopen(req)
     result = json.loads(response.read().decode())
@@ -118,7 +120,7 @@ async def photo(message: types.Message):
     elif (result['wrong_input'] == False):
         if (result['image_found'] == False):
             file_id = message.photo[-1].file_id
-            await bot.download_file_by_id(file_id, f'/home/app/web/mediafiles/imgbank/{message.caption}.jpg')
+            await bot.download_file_by_id(file_id, f'/usr/src/aiogram/mediafiles/imgbank/{sem}/{message.caption}.jpg')
             await bot.send_message(message.from_user.id, 'Спасибо :)')
         else:
             await bot.send_message(message.from_user.id, 'Решение к этой задаче уже есть.')
