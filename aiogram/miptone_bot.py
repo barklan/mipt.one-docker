@@ -6,6 +6,7 @@ import quote
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types.message import ContentType
 import re
+import random
 import json
 import urllib.request
 import ssl
@@ -68,11 +69,13 @@ async def all_msg_handler(message: types.Message):
                 await bot.send_photo(message.from_user.id, 'https://mipt.one' + result['image_url'] + '-2.jpg')
             else:
                 pass
-        else:
+        elif result['wrong_input'] == False:
             await bot.send_message(
                 message.from_user.id, 
-                'Вы можете отправить своё решение',
+                'Отправьте свое решение 🤏',
             )
+        else:
+            pass
     else:
         await bot.send_message(
             message.from_user.id, 
@@ -111,7 +114,8 @@ async def photo(message: types.Message):
             if (result['image_found'] == False):
                 file_id = message.photo[-1].file_id
                 await bot.download_file_by_id(file_id, f'/usr/src/aiogram/mediafiles/imgbank/{sem}/{message.caption}.jpg')
-                await bot.send_message(message.from_user.id, 'Спасибо :)')
+                emo_list = ['👍', '😁', '😊', '🥰', '😍', '😗', '😚', '🤗', '😎', '😻']
+                await bot.send_message(message.from_user.id, 'Решение выложено. Спасибо ' + random.choice(emo_list))
             else:
                 await bot.send_message(message.from_user.id, 'Решение к этой задаче уже есть.')
         else:
