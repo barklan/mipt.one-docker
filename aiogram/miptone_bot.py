@@ -57,10 +57,9 @@ def change_sem_keyboard():
 async def start_cmd_handler(message: types.Message):
     await message.reply(
         '''
-        Привет!\n
-        У меня есть много задач по физике!\n
+        Приветик!\n
         Просто выбери семестр и набери номер задачи.\n
-        Также вы всегда можете выбрать семестр набрав "семестр"
+        Это бот без свистелок - он выполняет и будет выполнять только одну задачу.
         ''',
         reply_markup=change_sem_keyboard()
     )
