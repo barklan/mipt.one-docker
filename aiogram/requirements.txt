@@ -1,1 +1,5 @@
 aiogram
+vk_api
+beautifulsoup4
+markovify
+spacy
