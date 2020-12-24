@@ -91,7 +91,7 @@ async def all_msg_handler(message: types.Message):
                 pass
         elif result['wrong_input'] == False:
             if message.from_user.id not in blacklist:
-                await bot.send_message(message.from_user.id, 'Отправьте свое решение 🤏')
+                await bot.send_message(message.from_user.id, 'Отправь мне свое решение 🤏')
             else:
                 pass
         else:
