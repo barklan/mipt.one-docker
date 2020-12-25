@@ -1,5 +1,7 @@
 ## This is [**mipt.one**](https://mipt.one/) - webservice for MIPT students
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 ### Backend (ansamble of Docker images with docker-compose):
  - **traefik** as a proxy to nginx with let's encrypt ssl by let's encrypt certs
  - **nginx** as a proxy to WSGI gunicorn
