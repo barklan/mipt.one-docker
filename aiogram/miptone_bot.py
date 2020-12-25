@@ -24,6 +24,10 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
+welcome_message = 'Приветик!\nПросто выбери семестр и набери номер задачи.\n\
+Вы можете поменять семестр набрав "сем", "семестр", "sem", "semester".'
+
+
 # Initialize bot and dispatcher
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
@@ -55,14 +59,8 @@ def change_sem_keyboard():
 
 @dp.message_handler(commands='start')
 async def start_cmd_handler(message: types.Message):
-    await message.reply(
-        '''
-        Приветик!\n
-        Просто выбери семестр и набери номер задачи.\n
-        Это бот без свистелок - он выполняет и будет выполнять только одну задачу.
-        ''',
-        reply_markup=change_sem_keyboard()
-    )
+    await bot.send_message(message.from_user.id, welcome_message,
+                           reply_markup=change_sem_keyboard())
 
 
 @dp.callback_query_handler(text='1')
@@ -121,7 +119,7 @@ async def all_msg_handler(message: types.Message):
         )
 
 
-@dp.message_handler(regexp=r'^семестр$')
+@dp.message_handler(regexp=r'(^семестр$|^сем$|^sem$|^semester$)')
 async def change_sem(message: types.Message):
     await bot.send_message(
             message.from_user.id, 
