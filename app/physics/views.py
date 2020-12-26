@@ -34,7 +34,7 @@ def phys(request):
     image_found = False
     second_file = False
     third_file = False
-    image_url = "https://mipt.one/staticfiles/images/mipt_logo.png"
+    image_url = None
     image_url_naked = "none"
     sem = str(request.GET.get("sem", None))
     zad = str(request.GET.get("zad", None))
@@ -89,14 +89,16 @@ def phys(request):
         try:
             page = Zad.objects.get(sem=sem, zad=zad).page
             if page == 0:
-                kor_output = zad + " нет в Корявове :( "
+                kor_output = zad + " нет в Корявове."
             else:
-                kor_output = zad + " есть в Корявове на странице " + str(page) + ". "
+                kor_output = zad + " есть в Корявове на странице " + str(page) + "."
         except Zad.DoesNotExist:
+            page = 0
             kor_output = "entry does not extist in the database"
 
         image_url_naked = "/mediafiles/imgbank/" + sem + "/" + zad
         image_url = image_url_naked + ".jpg"
+        full_image_url = "https://mipt.one" + image_url
         if os.path.isfile("/home/app/web" + image_url):
             image_found = True
             if os.path.isfile("/home/app/web" + image_url_naked + "-2.jpg"):
@@ -105,7 +107,7 @@ def phys(request):
                     third_file = True
         else:
             image_found = False
-            kor_output = kor_output + "Готового решения пока нет."
+            kor_output = kor_output + " Готового решения пока нет :("
 
         sem_to_name = [
             "",
@@ -117,17 +119,21 @@ def phys(request):
         ]
         kor_output = sem_to_name[int(sem)] + ". " + kor_output
     else:
+        full_image_url = None
+        page = 0
         kor_output = "такой задачи нет"
 
     response = {
         "wrong_input": wrong_input,
         "sem": sem,
         "zad": zad,
+        "koryavov_page": page,
         "search_output": kor_output,
-        "image_url": image_url_naked,
         "image_found": image_found,
+        "full_image_url": full_image_url,
         "second_file": second_file,
         "third_file": third_file,
+        "image_url": image_url_naked,
     }
     return JsonResponse(response)
 
