@@ -52,6 +52,12 @@ RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
 RUN mkdir $APP_HOME/mediafiles
 RUN mkdir $APP_HOME/mediafiles/imgbank
+RUN mkdir $APP_HOME/mediafiles/imgbank/1
+RUN mkdir $APP_HOME/mediafiles/imgbank/2
+RUN mkdir $APP_HOME/mediafiles/imgbank/3
+RUN mkdir $APP_HOME/mediafiles/imgbank/4
+RUN mkdir $APP_HOME/mediafiles/imgbank/5
+RUN mkdir $APP_HOME/mediafiles/imgbank/666
 WORKDIR $APP_HOME
 
 # install dependencies

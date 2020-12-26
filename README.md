@@ -42,3 +42,15 @@ Useful command that lets you identify dangling volumes:
 
 - `ln -s /var/lib/docker/volumes/miptonedocker_static_volume /home/docker/mipt.one-docker`
 - `ln -s /var/lib/docker/volumes/miptonedocker_media_volume /home/docker/mipt.one-docker`
+
+
+## A hard reset
+
+docker-compose down -v
+./up.sh
+docker-compose -f docker-compose.yml exec web python manage.py makemigrations --noinput
+docker-compose -f docker-compose.yml exec web python manage.py migrate --noinput
+
+then add from csv to database
+
+also, dont forget to pull staticfiles and upload mediafiles

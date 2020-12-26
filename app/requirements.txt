@@ -6,3 +6,4 @@ setuptools
 aiohttp
 requests
 Pillow
+pandas
