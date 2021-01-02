@@ -14,31 +14,34 @@ def antiplagapi(request):
 
     translator = Translator(service_urls=['translate.google.com'])
 
-    if antiplagmode == 'mild':
-        langs = ['en', 'de', 'ru']
-        translation = inputtext
-        for lang in langs:
-            translation = translator.translate(translation, dest=lang).text
-        output = translation
-    elif antiplagmode == 'berserk':
-        langs = ['no', 'hi', 'en', 'fr', 'ru']
-        translation = inputtext
-        for lang in langs:
-            translation = translator.translate(translation, dest=lang).text
-        output = translation
-    elif antiplagmode == 'synonym':
-        url = 'https://rustxt.ru/api/index.php'
-        payload = {
-            'method': 'getSynText',
-            'text': inputtext,
-        }
-        data = urllib.parse.urlencode(payload).encode()
-        req = urllib.request.Request(url, data=data)
-        response = urllib.request.urlopen(req)
-        result = json.loads(response.read().decode())
-        output = result['modified_text']
+    if translator.detect(inputtext).lang != "ru":
+        output = "Поддерживается только русский язык."
     else:
-        output = 'SERVER ERROR'
+        if antiplagmode == 'mild':
+            langs = ['en', 'de', 'ru']
+            translation = inputtext
+            for lang in langs:
+                translation = translator.translate(translation, dest=lang).text
+            output = translation
+        elif antiplagmode == 'berserk':
+            langs = ['no', 'hi', 'en', 'fr', 'ru']
+            translation = inputtext
+            for lang in langs:
+                translation = translator.translate(translation, dest=lang).text
+            output = translation
+        elif antiplagmode == 'synonym':
+            url = 'https://rustxt.ru/api/index.php'
+            payload = {
+                'method': 'getSynText',
+                'text': inputtext,
+            }
+            data = urllib.parse.urlencode(payload).encode()
+            req = urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            output = result['modified_text']
+        else:
+            output = 'SERVER ERROR'
 
 
 

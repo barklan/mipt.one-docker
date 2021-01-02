@@ -12,6 +12,8 @@ import os
 import json
 import urllib.request
 
+from fractions import Fraction
+
 from physics.models import Zad
 
 # import threading
@@ -41,19 +43,19 @@ def phys(request):
 
     url = f"https://mipt1.ru/1_2_3_4_5_kor.php?sem={sem}&zad={zad}"
 
-    async def fetch_links_and_pass(url: str, session: ClientSession):
-        async with session.get(url) as response:
-            html = await response.text()
-        soup = BeautifulSoup(html, "html.parser")
-        div = soup.find_all("div", class_="short_content")[0]
-        output = div.b.get_text()
-        return output
+    # async def fetch_links_and_pass(url: str, session: ClientSession):
+    #     async with session.get(url) as response:
+    #         html = await response.text()
+    #     soup = BeautifulSoup(html, "html.parser")
+    #     div = soup.find_all("div", class_="short_content")[0]
+    #     output = div.b.get_text()
+    #     return output
 
-    async def fetch(url):
-        async with ClientSession() as session:
-            tasks = [asyncio.create_task(fetch_links_and_pass(url, session))]
-            output = await asyncio.gather(*tasks)
-            return output
+    # async def fetch(url):
+    #     async with ClientSession() as session:
+    #         tasks = [asyncio.create_task(fetch_links_and_pass(url, session))]
+    #         output = await asyncio.gather(*tasks)
+    #         return output
 
     # MY validation checks:
     if (
@@ -191,3 +193,29 @@ def image_upload_fuck(request):
 def redirect_view(request):
     response = redirect("/staticfiles/old/index.html")
     return response
+
+
+def resistor_solver(request):
+    output = "???"
+
+    try:
+        R1 = int(request.GET.get("R1", None))
+        R2 = int(request.GET.get("R2", None))
+        R3 = int(request.GET.get("R3", None))
+        R4 = int(request.GET.get("R4", None))
+        R5 = int(request.GET.get("R5", None))
+    except:
+        output = "Неверный ввод :("
+        return JsonResponse({"output": output})
+    
+    Rx1 = Fraction(R3 * R1, R3 + R5 + R1)
+    Rx2 = Fraction(R5 * R1, R3 + R5 + R1)
+    Rx3 = Fraction(R3 * R5, R3 + R5 + R1)
+    Ry1 = Rx2 + R2
+    Ry2 = Rx3 + R4
+    Rz = Ry1 * Ry2 / (Ry1 + Ry2)
+    Rab = Rx1 + Rz
+
+    output = "Rab = " + str(Rab) + " R"
+
+    return JsonResponse({"output": output})

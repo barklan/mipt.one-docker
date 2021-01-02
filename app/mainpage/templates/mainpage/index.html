@@ -97,7 +97,6 @@
 			</div> -->
 			<div class="row-sm-3" style="background-color:#f2f2f2;"><span class="boxtitle3">Книги и Пиратство</span>
 				<ul>
-					<li><a href="https://lib.mipt.ru/" rel="noreferrer" target="_blank">Эл. библ. Физтеха</a></li>
                     <li><a href="https://ru.book4you.org/" rel="noreferrer" target="_blank" data-bs-toggle="tooltip" data-bs-placement="right" title="Самая большая электронная библиотека. Здесь есть всё">Z-Lib</a> | <a href="loginlibhuwhnmis.onion/" rel="noreferrer" target="_blank">.onion ссылка</a></li>
 					<li><a href="http://flibustahezeous3.onion/" rel="noreferrer" target="_blank">Флибуста .onion</a></li>
 					<li><a href="https://rutracker.org/forum/index.php" rel="noreferrer" target="_blank">Rutracker</a></li>
@@ -107,6 +106,31 @@
                     </p></li> -->
 
 				</ul>
+            </div>
+
+            <div class="row-sm-3" style="background-color:#f2f2f2;">
+            <!-- <span class="boxtitle3">потому что почему нет</span> -->
+                <ul>
+                    <li><a href="https://lib.mipt.ru/" rel="noreferrer" target="_blank">Эл. библ. Физтеха</a></li>
+                    <li>
+                    <form method="GET" id="resistorform" name="resistorform" style="display: inline;">
+                        <div class="resistorscontainer">
+                            <img src="/staticfiles/images/resistorsf.png" alt="bitch" style="width:100%;">
+                            <div class="bottom-left"><input class="resist" type="number" name="R3" size="1" value="">R</div>
+                            <div class="top-left"><input class="resist" type="number" name="R1" size="1" value="">R</div>
+                            <div class="top-right"><input class="resist" type="number" name="R2" size="1" value="">R</div>
+                            <div class="bottom-right"><input class="resist" type="number" name="R4" size="1" value="">R</div>
+                            <div class="centered"><input class="resist" type="number" name="R5" size="1" value="">R</div>
+                        </div>
+                        <button id="resistorbutton" type="submit" value="Решить!" class="btn btn-outline-secondary">Решить!</button>
+                    </form>
+
+                    </li>
+                    <li id="resistorout">
+
+                    </li>
+
+                </ul>
             </div>
             
            
@@ -197,7 +221,7 @@
                     
 
                 </li>
-                <li><a href="https://vk.com/miptone_v2" rel="noreferrer" target="_blank">писать сюда</a></li>
+                <!-- <li><a href="https://vk.com/miptone_v2" rel="noreferrer" target="_blank">писать сюда</a></li> -->
 
 
 				<!-- <li><a href="https://vk.com/miptone" rel="noreferrer" target="_blank">Напиши нам! )</a></li> -->
@@ -217,6 +241,45 @@
         })
 
     </script>
+
+
+    {% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk"></script>
+
+    <!-- SEARCH FORM -->
+    <script>
+        function fuckingsearch() {
+            $.ajax({
+                    data: $('#resistorform').serialize(), // get the form data
+                    url: "{% url 'resistorsolver' %}",
+                    // on success
+                    success: function(response) {
+                        $("#resistorout").html(response.output);
+                        // alert('it worked');
+                        // alert(response.search_output);
+                    },
+                    // on error
+                    error: function(response) {
+                        alert('it didnt work');
+                        // alert the error if any error occured
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+        }
+
+        $(document).ready(function () {
+            // catch the form's submit event
+            $('#resistorform').submit(function() {
+                fuckingsearch()
+
+                return false;
+            });
+        })
+
+
+    </script>
+    {% endblock javascript %}
 
         
         <!-- <footer class="footer bg-dark navbar-dark" style="padding: 10px;">

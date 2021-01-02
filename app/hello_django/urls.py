@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from mainpage.views import mainpage, phgo, antiplagpage
-from physics.views import redirect_view, image_upload_fuck, phys
+from physics.views import redirect_view, image_upload_fuck, phys, resistor_solver
 from upload.views import image_upload
 from antiplag.views import antiplagapi
 
@@ -16,7 +16,8 @@ urlpatterns = [
     path("antiplag/", antiplagpage, name="antiplag"),
     path("antiplagapi/", antiplagapi, name="antiplagapi"),
     path("upload/", image_upload, name="upload"),
-    path("uploadfuck/", image_upload_fuck, name='uploadfuck'),
+    path("uploadfuck/", image_upload_fuck, name="uploadfuck"),
+    path("resistorsolver/", resistor_solver, name="resistorsolver"),
     # path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
