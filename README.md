@@ -26,6 +26,7 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 #### A note on system managment
 
 `free -h`
+`df -h`
 
 #### A note on docker volumes
 

@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}Detection Project{% endblock %}
+
+{% block navclassdetection %}active{% endblock %}
+
+{% block real_content %}
+
+
+<div class="container-fluid">
+		
+    <div class="row" id="mainrows"> <!-- 4 колонны-->
+    
+
+    <div class="col-sm-12 col-md-4 col-lg-3" id="physfirstcol"> <!-- 1 colomn-->
+        
+        <div class="row-sm-3" id="physsearchdiv" style="background-color: #f2f2f2; visibility: hidden;">
+        
+            <ul>
+
+                <li style="margin-left:-30px; margin-right:0px; z-index: 100;">
+                    <form method="GET" id="physform" name="theForm">
+                    <div class="input-group">
+                        <input type="hidden" id="randomid" name="random_id_req" value="1337">
+                    </div>
+                    </form>
+
+                    <p style="padding: 8px;" id="physout">Поиcк по задачам</p>
+
+                <!-- <p style="padding:6px"> {{ search_output }} </p> -->
+                </li>
+
+            </ul>
+
+        </div>
+        
+        <div id="uploadformdiv" class="row-sm-3" style="background-color: #f2f2f2;">
+        <span class="boxtitle2">Выложите решение задачи с подписанным номером</span>
+        <ul>
+            <li id='imageuploadid' style='margin-right:0px; margin-left:-32px'>
+
+                {% block content %}
+
+                <form id="fileuploadform" action="{% url 'uploadfuck' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" id="hiddenrandomid" name="random_id" value="1338">
+                    <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="fileinput" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="image_file">
+                        <button class="btn btn-outline-secondary" type="submit" value="submit" id="inputGroupFileAddon04">Залить</button>
+                    </div>
+
+                </form>
+
+
+
+                {% endblock %}
+
+            </li>
+
+        </ul>
+        </div>
+        
+
+
+    </div> <!-- /1 colomn-->
+    
+    <div class="col-sm-12 col-md-8 col-lg-9"> <!-- 2 colomn-->
+
+        <div id="solutiondiv" class="row-sm-3" style="background-color: #f2f2f2; display: none;"><span class="boxtitle3">Решение</span>
+            <ul>
+                <li id="solutionimage">
+
+
+                </li>
+                <li id="solutionimage2" style="display: none;">
+
+
+                </li>
+                <li id="solutionimage3" style="display: none;">
+
+
+                </li>
+            </ul>
+        </div>
+       
+    </div> <!-- /2 colomn-->
+
+
+    </div> <!-- /4 колонны-->
+    
+    
+    {% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk"></script>
+
+    <!-- SEARCH FORM -->
+    <script>
+        function fuckingsearch() {
+            $.ajax({
+                    data: $('#physform').serialize(), // get the form data
+                    url: "{% url 'detect' %}",
+                    // on success
+                    success: function(response) {
+                        // $("#physout").html(response.search_output);
+                        $("#solutionimage").html('<img src="' + response.detect_image_url + '" class="img-fluid" alt="No image... for now">');
+                        $("#solutionimage2").html('<img src="' + response.crop_image_url + '" class="img-fluid" alt="No second image... for now">');
+
+                        // $("#hiddensem").attr("value", response.sem);
+                        // $("#hiddenzad").attr("value", response.zad);
+
+                        div = document.getElementById("uploadformdiv");
+                        soldiv = document.getElementById("solutiondiv");
+                        image2 = document.getElementById("solutionimage2");
+                        image2.style["display"] = "none";
+
+
+                        soldiv.style["display"] = "block";
+                        if (response.detected == true) {
+                            image2.style["display"] = "block";
+                        }
+                        
+                        // alert('it worked');
+                        // alert(response.search_output);
+                    },
+                    // on error
+                    error: function(response) {
+                        alert('it didnt work');
+                        // alert the error if any error occured
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+        }
+
+        $(document).ready(function () {
+            // catch the form's submit event
+            $('#physform').submit(function() {
+                fuckingsearch()
+
+                return false;
+            });
+        })
+
+
+    // FILE UPLOAD FORM
+        $(document).ready(function () {
+            // catch the form's submit event
+            $('#fileuploadform').submit(function(event) {
+                event.preventDefault();
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk', {action: 'submit'}).then(function(token) {
+                        $("#recaptchaResponse").attr("value", token);
+                        var random_id_gen = String(Math.floor((Math.random() * 1000000000) + 1))
+                        $("#hiddenrandomid").attr("value", random_id_gen);
+                        var form = $('#fileuploadform')[0];
+                        var data = new FormData(form);
+                        // jQuery.each(jQuery('#fileinput')[0].files, function(i, file) {
+                        //     data.append('file-'+i, file);
+                        // });
+                        // create an AJAX call
+                        $.ajax({
+                            url: "{% url 'uploadfuck' %}",
+                            data: data, // get the form data
+                            // contentType: "multipart/form-data",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            method: "POST",
+                            enctype: 'multipart/form-data',
+                            // on success
+                            success: function(response) {
+                                // upout = document.getElementById("uploadout");
+                                // if (response.diditwork == 0) {
+                                //     upout.style["display"] = "block";
+                                // } else {
+                                // upout.style["display"] = "none";
+                                $("#randomid").attr("value", response.random_id);
+                                fuckingsearch()
+                                    // alert('it worked');
+                                    // alert(response.search_output);
+                                // }
+                            },
+                            // on error
+                            error: function(response) {
+                                alert('it didnt work');
+                                // alert the error if any error occured
+                                console.log(response.responseJSON.errors)
+                            }
+                        });
+                    });
+                });
+
+
+                return false;
+            });
+        })
+    </script>
+    {% endblock javascript %}
+
+
+</div>
+
+{% endblock %}

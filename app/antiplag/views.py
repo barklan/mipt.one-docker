@@ -51,3 +51,7 @@ def antiplagapi(request):
         'antiplagmode': antiplagmode
     }
     return JsonResponse(response)
+
+
+def antiplagpage(request):
+    return render(request, "antiplag/index.html")

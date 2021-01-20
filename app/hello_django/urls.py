@@ -3,10 +3,11 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from mainpage.views import mainpage, phgo, antiplagpage
-from physics.views import redirect_view, image_upload_fuck, phys, resistor_solver
+from mainpage.views import mainpage
+from physics.views import redirect_view, phys, resistor_solver, phgo
 from upload.views import image_upload
-from antiplag.views import antiplagapi
+from antiplag.views import antiplagapi, antiplagpage
+from detection.views import detection_page, detect, image_upload_fuck
 
 
 urlpatterns = [
@@ -16,10 +17,12 @@ urlpatterns = [
     path("antiplag/", antiplagpage, name="antiplag"),
     path("antiplagapi/", antiplagapi, name="antiplagapi"),
     path("upload/", image_upload, name="upload"),
-    path("uploadfuck/", image_upload_fuck, name="uploadfuck"),
     path("resistorsolver/", resistor_solver, name="resistorsolver"),
     # path("up/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
+    path("detection/", detection_page, name="detection"),
+    path("uploadfuck/", image_upload_fuck, name="uploadfuck"),
+    path("detect/", detect, name="detect"),
 ]
 
 

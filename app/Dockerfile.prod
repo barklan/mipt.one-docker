@@ -63,7 +63,7 @@ WORKDIR $APP_HOME
 # install dependencies
 # RUN apk update && apk add libpq
 # RUN apt-get update && apt-get install -y libpq
-RUN apt-get update && apt-get install -y libpq-dev netcat
+RUN apt-get update && apt-get install -y libpq-dev netcat ffmpeg libsm6 libxext6
 RUN python -m pip install --upgrade pip
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
@@ -72,6 +72,11 @@ RUN pip install --no-cache /wheels/*
 RUN pip install git+https://github.com/ssut/py-googletrans.git@feature/rpc
 # RUN pip install googletrans
 # RUN pip install googletrans==4.0.0rc1
+
+
+RUN pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+RUN python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.7/index.html
+
 
 # copy entrypoint-prod.sh
 COPY ./entrypoint.prod.sh $APP_HOME

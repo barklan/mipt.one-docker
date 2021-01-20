@@ -36,6 +36,24 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 sem_dict = {}
 
+
+# Load visited users ids list
+all_time_users_path = "/usr/src/aiogram/mediafiles/imgbank/all_time_users.pkl"
+global all_time_users
+if os.path.isfile(all_time_users_path):
+    with open(all_time_users_path, "rb") as f:
+        all_time_users = pickle.load(f)
+else:
+    all_time_users = set()
+    with open(all_time_users_path, "wb") as f:
+        pickle.dump(all_time_users, f)
+    
+def add_to_all_time_users(user_id):
+    all_time_users.add(user_id)
+    with open(all_time_users_path, "wb") as f:
+        pickle.dump(all_time_users, f)
+
+
 # Load blacklist
 blacklist_path = "/usr/src/aiogram/mediafiles/imgbank/blacklist.pkl"
 global blacklist
@@ -47,11 +65,7 @@ else:
     with open(blacklist_path, "wb") as f:
         pickle.dump(blacklist, f)
 
-
 def add_to_blacklist(user_id):
-    """
-    Adds user_id to blacklist
-    """
     blacklist.add(user_id)
     with open(blacklist_path, "wb") as f:
         pickle.dump(blacklist, f)
@@ -99,6 +113,7 @@ async def all_msg_handler(message: types.Message):
     Main request for task solutions
     """
     id = message.from_user.id
+    add_to_all_time_users(id)
     if id in sem_dict:
         sem = sem_dict[id]
         zad = message.text

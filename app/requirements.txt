@@ -7,3 +7,6 @@ aiohttp
 requests
 Pillow
 pandas
+pyyaml==5.1
+opencv-python
+opencv-contrib-python

@@ -11,6 +11,7 @@ import re
 import os
 import json
 import urllib.request
+import pickle
 
 from fractions import Fraction
 
@@ -219,3 +220,52 @@ def resistor_solver(request):
     output = "Rab = " + str(Rab) + " R"
 
     return JsonResponse({"output": output})
+
+
+def phgo(request):
+    def countfiles(dir):
+        return len(
+            [
+                name
+                for name in os.listdir(dir)
+                if (os.path.isfile(os.path.join(dir, name)) and ("-" not in name))
+            ]
+        )
+
+    fps = ["/home/app/web/mediafiles/imgbank/" + str(i) + "/" for i in range(1, 6)]
+    counts = [countfiles(fps[i]) for i in range(5)]
+    count1, count2, count3, count4, count5 = counts
+    totals = [sum(COVERAGE_TOTALS[i]) for i in range(1, 6)]
+    total1, total2, total3, total4, total5 = totals
+    coverages = [round(counts[i] / totals[i] * 100) for i in range(5)]
+    coverage1, coverage2, coverage3, coverage4, coverage5 = coverages
+
+    # this is freedom percentage
+    global_total = sum(totals)
+    global_count = sum(counts)
+    freedom = round(global_count / global_total * 100)
+
+    with open("/home/app/web/mediafiles/imgbank/all_time_users.pkl", "rb") as f:
+        all_time_users = pickle.load(f)
+        all_time_users_count = len(all_time_users)
+
+    context = {
+        "count1": count1,
+        "total1": total1,
+        "coverage1": coverage1,
+        "count2": count2,
+        "total2": total2,
+        "coverage2": coverage2,
+        "count3": count3,
+        "total3": total3,
+        "coverage3": coverage3,
+        "count4": count4,
+        "total4": total4,
+        "coverage4": coverage4,
+        "count5": count5,
+        "total5": total5,
+        "coverage5": coverage5,
+        "freedom": freedom,
+        "all_time_users_count": all_time_users_count,
+    }
+    return render(request, "physics/index.html", context)
