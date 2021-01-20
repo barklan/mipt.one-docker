@@ -16,25 +16,10 @@ import random
 from fractions import Fraction
 
 from detection.detectron import *
-from django.conf.settings import predictor
 
 # import threading
 
 CAPTCHASECRETKEY = os.environ.get("CAPTCHASECRETKEY")
-
-global predictor
-global init_done
-init_done = False
-
-def make_predictor():
-    with open("/home/app/web/mediafiles/models/cfg.pkl", "rb") as f:
-        cfg = pickle.load(f)
-
-    cfg.MODEL.DEVICE = "cpu"
-    cfg.MODEL.WEIGHTS = os.path.join("/home/app/web/mediafiles/models/model_final.pth")
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
-    predictor1 = DefaultPredictor(cfg)
-    return predictor1
 
 
 def detection_page(request):
@@ -55,6 +40,16 @@ def detection_page(request):
 
 
 def detect(request):
+    def make_predictor():
+        with open("/home/app/web/mediafiles/models/cfg.pkl", "rb") as f:
+            cfg = pickle.load(f)
+
+        cfg.MODEL.DEVICE = "cpu"
+        cfg.MODEL.WEIGHTS = os.path.join("/home/app/web/mediafiles/models/model_final.pth")
+        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+        predictor1 = DefaultPredictor(cfg)
+        return predictor1
+
     random_id = str(request.GET.get("random_id_req", "shit_no_id"))
     image_url = "/mediafiles/detection_demo/" + str(random_id) + ".jpg"
     detect_image_url = "/mediafiles/detection_demo/" + str(random_id) + "_detect.jpg"
@@ -62,15 +57,13 @@ def detect(request):
     ocred_string = ""
 
     # init model
-    if init_done == False:
-        predictor = make_predictor()
-    else:
-        pass
+    predictor = make_predictor()
+
 
 
 
     # im = cv2.imread("demo2.jpg")
-    im = Image.open('demo.jpg')
+    im = Image.open("/home/app/web" + image_url)
     orig = im
 
     # resize initial image to reduce inference time on cpu
