@@ -1,0 +1,6 @@
+setuptools
+Pillow
+numpy
+pyyaml==5.1
+opencv-python
+opencv-contrib-python

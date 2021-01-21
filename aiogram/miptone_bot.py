@@ -239,8 +239,8 @@ async def echo(message: types.Message):
 
 
 if __name__ == "__main__":
-    global model
-    model = quote.fit_model()
+    # global model
+    # model = quote.fit_model()
     global model_ft
     model_ft = load_model("saved_model")
     executor.start_polling(dp, skip_updates=True)

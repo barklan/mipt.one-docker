@@ -60,6 +60,9 @@ RUN mkdir $APP_HOME/mediafiles/imgbank/5
 RUN mkdir $APP_HOME/mediafiles/imgbank/666
 WORKDIR $APP_HOME
 
+RUN mkdir -p /home/app/.config/matplotlib
+RUN chmod 775 /home/app/.config/matplotlib
+
 # install dependencies
 # RUN apk update && apk add libpq
 # RUN apt-get update && apt-get install -y libpq
@@ -74,8 +77,8 @@ RUN pip install git+https://github.com/ssut/py-googletrans.git@feature/rpc
 # RUN pip install googletrans==4.0.0rc1
 
 
-RUN pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
-RUN python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.7/index.html
+# RUN pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+# RUN python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.7/index.html
 
 
 # copy entrypoint-prod.sh
