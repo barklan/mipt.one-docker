@@ -15,9 +15,6 @@ import random
 
 from fractions import Fraction
 
-import subprocess
-
-# import threading
 
 CAPTCHASECRETKEY = os.environ.get("CAPTCHASECRETKEY")
 
@@ -99,22 +96,25 @@ def image_upload_fuck(request):
 
         image_file = request.FILES["image_file"]
         random_id = str(request.POST.get("random_id", "shit_no_id"))
-        random_id = "1338"
-        
+        # random_id = "1338"
 
-        Image.open(image_file)
-        folder = "/home/app/web/mediafiles/detection_demo/"
-        fs = FileSystemStorage(location=folder)
-        name_to_save = random_id + ".jpg"
-        filename = fs.save(name_to_save, image_file)
+        try:
+            Image.open(image_file)
+            folder = "/home/app/web/mediafiles/detection_demo/"
+            fs = FileSystemStorage(location=folder)
+            name_to_save = random_id + ".jpg"
+            filename = fs.save(name_to_save, image_file)
+            diditwork = 1
+        except:
+            diditwork = 0
 
-        # relay to detectron
-        # cmd = f"python /home/app/web/detectron.py --id {random_id}"
-        # p = subprocess.Popen(cmd, shell=True, close_fds=False)
-        # pid = p.pid
-        # return redirect('https://mipt.one/')
+        if diditwork == 1:
+            url = f"http://flask:5000/detectron?random_id={random_id}"
+            req = urllib.request.Request(url)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            success = result["success"]
 
-        # return render(request, "physics/index.html")
         response = {
             "random_id": random_id,
             "diditwork": diditwork,

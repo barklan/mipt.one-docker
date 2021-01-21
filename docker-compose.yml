@@ -17,18 +17,22 @@ services:
       - ./.env.prod
     depends_on:
       - db
-  detectron2:
+  flask:
     build:
-      context: ./detectron2
+      context: ./flask
       dockerfile: Dockerfile
     volumes:
-      - media_volume:/home/app/detectron2/mediafiles
-    env_file:
-      - ./.env.prod
+      - media_volume:/home/app/flask/mediafiles
     shm_size: "8gb"
     ulimits:
       memlock: -1
       stack: 67108864
+    expose:
+      - 5000
+    ports:
+      - '5000:5000'
+    env_file:
+      - ./.env.prod
     depends_on:
       - web
   db:
@@ -49,25 +53,25 @@ services:
       - 'traefik.http.routers.my-app.rule=Host(`mipt.one`)'
       - 'traefik.http.routers.my-app.tls=true'
       - 'traefik.http.routers.my-app.tls.certresolver=lets-encrypt'
-  # traefik:
-  #   image: traefik:2.1
-  #   restart: always
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   volumes:
-  #   - ./traefik:/etc/traefik
-  #   - /var/run/docker.sock:/var/run/docker.sock:ro
-  # aiogram:
-  #   build:
-  #     context: ./aiogram
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - ./.env.prod
-  #   volumes:
-  #     - media_volume:/usr/src/aiogram/mediafiles
-  #   depends_on:
-  #     - web
+  traefik:
+    image: traefik:2.1
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+    - ./traefik:/etc/traefik
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  aiogram:
+    build:
+      context: ./aiogram
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env.prod
+    volumes:
+      - media_volume:/usr/src/aiogram/mediafiles
+    depends_on:
+      - web
 
 volumes:
   postgres_data:

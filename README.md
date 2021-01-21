@@ -68,3 +68,6 @@ git push -u origin main
 ## some
 
 predictor = DefaultPredictor(cfg)
+
+
+docker-compose exec web curl http://flask:5000/detectron?random_id=171527199

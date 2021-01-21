@@ -2,8 +2,8 @@
 FROM python:3.8.3
 
 # set work directory
-WORKDIR /home/app/detectron2
-RUN mkdir /home/app/detectron2/mediafiles/
+WORKDIR /home/app/flask
+RUN mkdir /home/app/flask/mediafiles/
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -29,5 +29,5 @@ COPY ./entrypoint.sh .
 COPY . .
 
 # run entrypoint.sh
-RUN chmod +x /home/app/detectron2/entrypoint.sh
-ENTRYPOINT ["/home/app/detectron2/entrypoint.sh"]
+RUN chmod +x /home/app/flask/entrypoint.sh
+ENTRYPOINT ["/home/app/flask/entrypoint.sh"]

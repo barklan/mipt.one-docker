@@ -175,14 +175,12 @@
                                 //     upout.style["display"] = "block";
                                 // } else {
                                 // upout.style["display"] = "none";
-                                function sleep(milliseconds) {
-                                    return new Promise(resolve => setTimeout(resolve, milliseconds))
-                                }
+                                // function sleep(milliseconds) {
+                                //     return new Promise(resolve => setTimeout(resolve, milliseconds))
+                                // }
                                 
-                                sleep(20000).then(() => {
-                                    $("#randomid").attr("value", response.random_id);
-                                    fuckingsearch()
-                                })
+                                $("#randomid").attr("value", response.random_id);
+                                fuckingsearch()
 
                                 alert('it worked');
                                     // alert(response.search_output);
