@@ -49,7 +49,7 @@ docker-compose -f docker-compose.yml exec web python manage.py migrate --noinput
 
 then add from csv to database
 
-also, dont forget to pull staticfiles and upload mediafiles
+also, dont forget to pull staticfiles and upload mediafiles, postgres data
 
 #### Push to an existing repo
 

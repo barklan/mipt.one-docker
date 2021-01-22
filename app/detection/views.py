@@ -30,8 +30,8 @@ def detection_page(request):
             except:
                 pass
 
-    # if random.choice([i for i in range(10)]) == 0:
-    #     clean_all_collected()
+    if random.choice([i for i in range(10)]) == 0:
+        clean_all_collected()
     context = {"hey": None}
     return render(request, "detection/index.html", context)
 

@@ -60,14 +60,13 @@
             </ul>
         </div>
 
-        <div class="row-sm-3" id="statsdiv" style="background-color: #f2f2f2;">
+        <div class="row-sm-3" id="statsdiv_detect" style="background-color: #f2f2f2;">
             <!-- <span class="boxtitle2">Решено задач:</span> -->
             <ul>
-                <li id="solutionimage2" style="display: none;">
+                <li id="solutionimage2" style="display: none; padding: 8px;">
                 </li>
                 <li>
-                    <p>Recognized number:</p>
-                    <p style="padding: 10px; display: none;" id="ocrout"></p>
+                    <p style="padding: 8px 8px 4px 8px; display: none;" id="ocrout"></p>
                 </li>
 
                 <div style="padding: 10px; visibility: hidden; width: 3rem; height: 3rem;" class="spinner-border float-end" id="spinner" role="status">
@@ -138,7 +137,7 @@
                         }
 
                         if (response.ocred == true) {
-                            $("#ocrout").html(response.ocred_string);
+                            $("#ocrout").html('Recognized task number: ' + response.ocred_string);
                             ocred_text.style["display"] = "block";
                         }
                         
