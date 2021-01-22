@@ -4,9 +4,9 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
 
->Blog post: **[1st part](https://barklan.github.io/2021/01/20/detectron2-train/)**, **[2nd part](https://barklan.github.io/2021/01/22/deploying-dl-models/)**. 
->**[Live demo](https://mipt.one/detection/)** and [acutal use](https://mipt.one/physics/).
->You can find telegram bot at **[@miptone_bot](https://t.me/miptone_bot)**.
+- Blog post: **[1st part](https://barklan.github.io/2021/01/20/detectron2-train/)**, **[2nd part](https://barklan.github.io/2021/01/22/deploying-dl-models/)**. 
+- **[Live demo](https://mipt.one/detection/)** and **[acutal use](https://mipt.one/physics/)**.
+- You can find telegram bot at **[@miptone_bot](https://t.me/miptone_bot)**.
 
 ![schema](dl_deployment.svg)
 
