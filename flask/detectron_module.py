@@ -23,6 +23,8 @@ from detectron2.modeling import build_model
 from detectron2.checkpoint import DetectionCheckpointer
 
 import time
+from math import ceil
+import re
 
 
 class Detectron():
@@ -38,7 +40,7 @@ class Detectron():
 
         cfg.MODEL.DEVICE = "cpu"
         cfg.MODEL.WEIGHTS = weights_path
-        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
         self.predictor = DefaultPredictor(cfg)
 
     def get_image(self, a):
@@ -74,11 +76,12 @@ class Detectron():
         detect_image_path = base_path + random_id + "_detect.jpg"
         crop_image_path = base_path + random_id + "_crop.jpg"
         output_path = base_path + random_id + ".txt"
+        task_number = ""
 
         # Read and predict
         im = Image.open(image_path)
-        # resize initial image to reduce inference time on cpu
-        # im = self.resize(im, 1000)
+        im = self.resize(im, 1000)
+        orig = im
         im = self.pil_to_cv(im)
         outputs = self.predictor(im)
         v = Visualizer(im[:, :, ::-1],
@@ -89,9 +92,58 @@ class Detectron():
 
         # Save
         img_det.save(detect_image_path)
+
+        # Crop and save if detected
+        boxes_tensor = outputs["instances"].pred_boxes.tensor
+        n_boxes = boxes_tensor.shape[0]
+        if n_boxes == 0:
+            detected = False
+        else:
+            detected = True
+            boxes = [tuple(boxes_tensor[i].numpy()) for i in range(n_boxes)]
+            best_box = (5000, 5000, 5000, 5000)
+            for box in boxes:
+                if box[1] < best_box[1]:
+                    best_box = box
+            x1, y1, x2, y2 = best_box
+            area = (ceil(x1), ceil(y1), ceil(x2), ceil(y2))
+            region = orig.crop(area)
+            region.save(crop_image_path)
         
+        # OCR
+        ocr_output_path = base_path + random_id + "_tesseract"
+        exit_code = os.system(f"tesseract {crop_image_path} {ocr_output_path}")
+        assert exit_code == 0
+        with open(ocr_output_path + ".txt", "r") as f:
+            string = f.read().strip()
+        ocr_failed = False
+
+        # Checks
+        if len(string) == 0:
+            ocr_failed = True
+        else:
+            if "." in string:
+                some = re.search(r"\d+\.\d+", string)
+                if some is not None:
+                    task_number = some.group(0)
+                else:
+                    ocr_failed = True
+            else:
+                some = re.search(r"\d*", string).group(0)
+                if len(some) in [2, 3]:
+                    task_number = ".".join((some[0], some[1:]))
+                elif len(some) in [4, 5]:
+                    task_number = ".".join((some[:2], some[2:]))
+                else:
+                    ocr_failed = True
+                    
+        if ocr_failed == True:
+            task_number = ""
+
         with open(output_path, "w") as f:
-            to_write = ["yes\n", str(random_id)]
+            yes_or_no_detected = "yes" if detected else "no"
+            yes_or_no_ocred = "yes" if not ocr_failed else "no"
+            to_write = [f"{yes_or_no_detected}\n", f"{yes_or_no_ocred}\n", str(task_number)]
             f.writelines(to_write)
 
         return None

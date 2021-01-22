@@ -41,6 +41,7 @@ def detect(request):
     base_relative_url = "/mediafiles/detection_demo/"
     ocred_string = ""
     detected = False
+    ocred = False
 
     random_id = str(request.GET.get("random_id_req", "shit_no_id"))
     image_url = base_relative_url + random_id + ".jpg"
@@ -53,7 +54,9 @@ def detect(request):
         with open(output_path, "r") as f:
             first_line = f.readline().strip()
             detected = True if (first_line == "yes") else False
-            if detected == True:
+            second_line = f.readline().strip()
+            ocred = True if (second_line == "yes") else False
+            if ocred == True:
                 ocred_string = f.readline().strip()
             else:
                 pass
@@ -63,6 +66,7 @@ def detect(request):
         "detect_image_url": detect_image_url,
         "crop_image_url": crop_image_url,
         "detected": detected,
+        "ocred": ocred,
         "ocred_string": ocred_string,
     }
     return JsonResponse(response)

@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED 1
 
 
 RUN apt-get update \
-    && apt-get install -y gcc python3-dev ufw python3-opencv ca-certificates python3-dev git wget sudo ninja-build
+    && apt-get install -y gcc python3-dev ufw python3-opencv ca-certificates python3-dev git wget sudo ninja-build tesseract-ocr
 
 # install dependencies
 RUN pip install --upgrade pip

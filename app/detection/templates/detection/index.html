@@ -14,53 +14,75 @@
 
     <div class="col-sm-12 col-md-4 col-lg-3" id="physfirstcol"> <!-- 1 colomn-->
         
-        <div class="row-sm-3" id="physsearchdiv" style="background-color: #f2f2f2; visibility: hidden;">
-        
+        <div class="row-sm-3" id="physsearchdiv" style="background-color: #f2f2f2;">
             <ul>
-
-                <li style="margin-left:-30px; margin-right:0px; z-index: 100;">
+                <li style="margin-left:-30px; margin-right:0px; z-index: 100; visibility: hidden;">
                     <form method="GET" id="physform" name="theForm">
                     <div class="input-group">
                         <input type="hidden" id="randomid" name="random_id_req" value="1337">
                     </div>
                     </form>
-
-                    <p style="padding: 8px;" id="physout">Поиcк по задачам</p>
-
-                <!-- <p style="padding:6px"> {{ search_output }} </p> -->
                 </li>
-
+                <li>
+                    <p style="padding: 8px;">
+                        Upload a solution photo and the task number will be automaticly detected and recognized.<br>
+                        <a href="https://barklan.github.io/2021/01/20/detectron2-train/">Read the blog post</a>.
+                    </p>
+                </li>
             </ul>
-
         </div>
         
         <div id="uploadformdiv" class="row-sm-3" style="background-color: #f2f2f2;">
-        <span class="boxtitle2">Выложите решение задачи с подписанным номером</span>
-        <ul>
-            <li id='imageuploadid' style='margin-right:0px; margin-left:-32px'>
+            <!-- <span class="boxtitle2">Выложите решение задачи с подписанным номером</span> -->
+            <ul>
+                <li id='imageuploadid' style='margin-right:0px; margin-left:-32px'>
 
-                {% block content %}
+                    {% block content %}
 
-                <form id="fileuploadform" action="{% url 'uploadfuck' %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" id="hiddenrandomid" name="random_id" value="1338">
-                    <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+                    <form id="fileuploadform" action="{% url 'uploadfuck' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" id="hiddenrandomid" name="random_id" value="1338">
+                        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="fileinput" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="image_file">
-                        <button class="btn btn-outline-secondary" type="submit" value="submit" id="inputGroupFileAddon04">Залить</button>
-                    </div>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="fileinput" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="image_file">
+                            <button class="btn btn-outline-secondary" type="submit" value="submit" id="inputGroupFileAddon04">Upload</button>
+                        </div>
 
-                </form>
+                    </form>
 
 
 
-                {% endblock %}
+                    {% endblock %}
 
-            </li>
+                </li>
 
-        </ul>
+            </ul>
         </div>
+
+        <div class="row-sm-3" id="statsdiv" style="background-color: #f2f2f2;">
+            <!-- <span class="boxtitle2">Решено задач:</span> -->
+            <ul>
+                <li id="solutionimage2" style="display: none;">
+                </li>
+                <li>
+                    <p>Recognized number:</p>
+                    <p style="padding: 10px; display: none;" id="ocrout"></p>
+                </li>
+
+                <div style="padding: 10px; visibility: hidden; width: 3rem; height: 3rem;" class="spinner-border float-end" id="spinner" role="status">
+                </div>
+            </ul>
+        </div>
+
+        <!-- <div class="row-sm-3" id="physinfodiv" style="background-color: #f2f2f2;">
+            <ul>
+                <li><p style="padding: 6px;">
+
+                    </p>
+                </li>
+            </ul>
+        </div> -->
         
 
 
@@ -68,20 +90,13 @@
     
     <div class="col-sm-12 col-md-8 col-lg-9"> <!-- 2 colomn-->
 
-        <div id="solutiondiv" class="row-sm-3" style="background-color: #f2f2f2; display: none;"><span class="boxtitle3">Решение</span>
+        <div id="solutiondiv" class="row-sm-3" style="background-color:#e0e0e0; display: none;">
+            <!-- <span class="boxtitle3">Решение</span> -->
             <ul>
                 <li id="solutionimage">
-
-
                 </li>
-                <li id="solutionimage2" style="display: none;">
 
 
-                </li>
-                <li id="solutionimage3" style="display: none;">
-
-
-                </li>
             </ul>
         </div>
        
@@ -103,9 +118,8 @@
                     url: "{% url 'detect' %}",
                     // on success
                     success: function(response) {
-                        // $("#physout").html(response.search_output);
                         $("#solutionimage").html('<img src="' + response.detect_image_url + '" class="img-fluid" alt="No image... for now">');
-                        $("#solutionimage2").html('<img src="' + response.crop_image_url + '" class="img-fluid" alt="No second image... for now">');
+                        $("#solutionimage2").html('<img src="' + response.crop_image_url + '" class="img-fluid" alt="It did not detect the task number">');
 
                         // $("#hiddensem").attr("value", response.sem);
                         // $("#hiddenzad").attr("value", response.zad);
@@ -114,11 +128,18 @@
                         soldiv = document.getElementById("solutiondiv");
                         image2 = document.getElementById("solutionimage2");
                         image2.style["display"] = "none";
+                        ocred_text = document.getElementById("ocrout");
+                        ocred_text.style["display"] = "none";
 
 
                         soldiv.style["display"] = "block";
                         if (response.detected == true) {
                             image2.style["display"] = "block";
+                        }
+
+                        if (response.ocred == true) {
+                            $("#ocrout").html(response.ocred_string);
+                            ocred_text.style["display"] = "block";
                         }
                         
                         // alert('it worked');
@@ -147,6 +168,7 @@
         $(document).ready(function () {
             // catch the form's submit event
             $('#fileuploadform').submit(function(event) {
+                $('#spinner').css('visibility', 'visible');
                 event.preventDefault();
                 grecaptcha.ready(function() {
                     grecaptcha.execute('6LddowgaAAAAACLT_o3UJEZZZvhVldoc3URO6Jdk', {action: 'submit'}).then(function(token) {
@@ -181,13 +203,14 @@
                                 
                                 $("#randomid").attr("value", response.random_id);
                                 fuckingsearch()
-
-                                alert('it worked');
+                                $('#spinner').css('visibility', 'hidden');
+                                // alert('it worked');
                                     // alert(response.search_output);
                                 // }
                             },
                             // on error
                             error: function(response) {
+                                $('#spinner').css('visibility', 'hidden');
                                 alert('it didnt work');
                                 // alert the error if any error occured
                                 console.log(response.responseJSON.errors)

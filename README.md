@@ -5,47 +5,42 @@
 </p>
 
 ### Backend (ansamble of Docker images with docker-compose):
- - **traefik** as a proxy to nginx with let's encrypt ssl by let's encrypt certs
- - **nginx** as a proxy to WSGI gunicorn
- - **gunicorn**
-
- - **Django** as a main handler
- - **aiogram** as telegram bot
-
+ - **traefik** to make available through ssl with let's encrypt certs
+ - **nginx** as a proxy-server
+ - **gunicorn** as a production WSGI server
+ - **Django** as the main app
+ - **Flask** as the internal server to serve **PyTorch** models:
+    - resnet8 as a binary clissifier (to filter dickpics)
+    - Faster RCNN with resnet50 backbone as a detector (using [detectron2](https://github.com/facebookresearch/detectron2))
+ - **aiogram** as a Telegram bot
  - **PostgreSQL** as database
  
 ### Frontend:
  - HTML/CSS with bootstrap 5
- - JS & JQuery
+ - JS & JQuery (heavy use of AJAX requests)
 
 Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 
 > Check out the [post](https://testdriven.io/dockerizing-django-with-postgres-gunicorn-and-nginx) which helped a lot
 
-
 #### A note on system managment
 
-`free -h`
-`df -h`
+- `free -h`
+- `df -h`
 
 #### A note on docker volumes
 
 - `docker system prune -a` to clear all used space by docker
-- list through the `docker volume ls`
-- identify through the `docker volume inspect volume_name`
-
-Useful command that lets you identify dangling volumes:
-- `docker volume ls -f dangling=true`
-
-
+- `docker volume ls` to list docker volumes
+- `docker volume inspect volume_name` to inspect a volume
+- `docker volume ls -f dangling=true` lets you identify dangling volumes
 
 #### A note on symbolic links
 
-- `ln -s /var/lib/docker/volumes/miptonedocker_static_volume /home/docker/mipt.one-docker`
-- `ln -s /var/lib/docker/volumes/miptonedocker_media_volume /home/docker/mipt.one-docker`
+- `ln -s /var/lib/docker/volumes/miptone-docker_static_volume /home/docker/mipt.one-docker`
+- `ln -s /var/lib/docker/volumes/miptone-docker_media_volume /home/docker/mipt.one-docker`
 
-
-## A hard reset
+#### Hard reset (don't do it)
 
 docker-compose down -v
 ./up.sh
@@ -56,18 +51,10 @@ then add from csv to database
 
 also, dont forget to pull staticfiles and upload mediafiles
 
-
-### push to an existing repo
+#### Push to an existing repo
 
 git remote add origin https://github.com/barklan/mipt.one-docker-static.git
 git branch -M main
 git push -u origin main
 
 
-
-## some
-
-predictor = DefaultPredictor(cfg)
-
-
-docker-compose exec web curl http://flask:5000/detectron?random_id=171527199
