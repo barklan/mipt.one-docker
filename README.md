@@ -1,5 +1,7 @@
 ## This is [**mipt.one**](https://mipt.one/) - webservice for MIPT students
 
+![schema](dl_deployment.svg)
+
 <p align="center">
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
