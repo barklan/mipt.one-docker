@@ -56,10 +56,7 @@ def detect(request):
             detected = True if (first_line == "yes") else False
             second_line = f.readline().strip()
             ocred = True if (second_line == "yes") else False
-            if ocred == True:
-                ocred_string = f.readline().strip()
-            else:
-                pass
+            ocred_string = f.readline().strip()
 
     response = {
         "image_url": image_url,

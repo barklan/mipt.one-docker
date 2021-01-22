@@ -5,3 +5,4 @@ numpy
 pyyaml==5.1
 opencv-python
 opencv-contrib-python
+scikit-learn==0.23.2

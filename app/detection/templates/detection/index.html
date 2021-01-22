@@ -136,17 +136,17 @@
                             image2.style["display"] = "block";
                         }
 
-                        if (response.ocred == true) {
-                            $("#ocrout").html('Recognized task number: ' + response.ocred_string);
-                            ocred_text.style["display"] = "block";
-                        }
+                        // if (response.ocred == true) {
+                        $("#ocrout").html('Output: ' + response.ocred_string);
+                        ocred_text.style["display"] = "block";
+                        // }
                         
                         // alert('it worked');
                         // alert(response.search_output);
                     },
                     // on error
                     error: function(response) {
-                        alert('it didnt work');
+                        alert('It failed in the search ajax call');
                         // alert the error if any error occured
                         console.log(response.responseJSON.errors)
                     }
@@ -210,7 +210,7 @@
                             // on error
                             error: function(response) {
                                 $('#spinner').css('visibility', 'hidden');
-                                alert('it didnt work');
+                                alert('it failed in the image upload ajax call');
                                 // alert the error if any error occured
                                 console.log(response.responseJSON.errors)
                             }
