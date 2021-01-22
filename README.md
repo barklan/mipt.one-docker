@@ -51,19 +51,17 @@ Hosted on vultr.com with pure Ubuntu 18.04 and Docker
 
 #### Hard reset (don't do it)
 
-docker-compose down -v
-./up.sh
-docker-compose -f docker-compose.yml exec web python manage.py makemigrations --noinput
-docker-compose -f docker-compose.yml exec web python manage.py migrate --noinput
+- `docker-compose down -v`
+- `./up.sh`
+- `docker-compose -f docker-compose.yml exec web python manage.py makemigrations --noinput`
+- `docker-compose -f docker-compose.yml exec web python manage.py migrate --noinput`
 
-then add from csv to database
-
-also, dont forget to pull staticfiles and upload mediafiles, postgres data
+Then add from csv to database. Also, dont forget to pull staticfiles and upload mediafiles, postgres data.
 
 #### Push to an existing repo
 
-git remote add origin https://github.com/barklan/mipt.one-docker-static.git
-git branch -M main
-git push -u origin main
+- `git remote add origin https://github.com/barklan/mipt.one-docker-static.git`
+- `git branch -M main`
+- `git push -u origin main`
 
 
