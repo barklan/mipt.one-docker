@@ -23,6 +23,7 @@ urlpatterns = [
     path("detection/", detection_page, name="detection"),
     path("uploadfuck/", image_upload_fuck, name="uploadfuck"),
     path("detect/", detect, name="detect"),
+    path("pony/", pony_redirect, name="pony"),
 ]
 
 

@@ -50,7 +50,7 @@ services:
       - web
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.my-app.rule=Host(`mipt.one`)'
+      - 'traefik.http.routers.my-app.rule=Host(`mipt.one`,`neuralpony.com`)'
       - 'traefik.http.routers.my-app.tls=true'
       - 'traefik.http.routers.my-app.tls.certresolver=lets-encrypt'
   traefik:

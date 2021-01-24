@@ -16,6 +16,11 @@ def mainpage(request):
     return render(request, "mainpage/index.html", context)
 
 
+def pony_redirect(request):
+    response = redirect("https://blog.neuralpony.com/")
+    return response
+
+
 # def phgo(request):
 #     def countfiles(dir):
 #         return len(
