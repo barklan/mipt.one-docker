@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "upload",
     "antiplag",
     "detection",
+    # "docs",
 ]
 
 MIDDLEWARE = [
