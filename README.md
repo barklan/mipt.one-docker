@@ -8,11 +8,15 @@
 - **[Live demo](https://mipt.one/detection/)** and **[acutal use](https://mipt.one/physics/)**.
 - You can find telegram bot at **[@miptone_bot](https://t.me/miptone_bot)**.
 
+### Schema
+
 ![schema](readme_img/dl_deployment.svg)
+
+### Detection demo page
 
 ![demo](readme_img/demo.jpg)
 
-You can use [images here]() to see the full potential of detector
+**You can use test [images here](https://github.com/barklan/mipt.one-docker/tree/main/readme_img) to see the full potential of detector.**
 
 ### Backend (ansamble of Docker images with docker-compose):
  - **traefik** to make available through ssl with let's encrypt certs
