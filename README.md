@@ -12,9 +12,9 @@
 
 ![schema](readme_img/dl_deployment.svg)
 
-### Detection demo page
+### [Detection demo page](https://mipt.one/detection/)
 
-[![demo](readme_img/demo.jpg)](https://mipt.one/detection/)
+![demo](readme_img/demo.jpg)
 
 **You can use test [images here](https://github.com/barklan/mipt.one-docker/tree/main/readme_img) to see the full potential of detector.**
 
