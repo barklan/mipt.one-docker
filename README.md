@@ -14,7 +14,7 @@
 
 ### Detection demo page
 
-![demo](readme_img/demo.jpg)
+[![demo](readme_img/demo.jpg)](https://mipt.one/detection/)
 
 **You can use test [images here](https://github.com/barklan/mipt.one-docker/tree/main/readme_img) to see the full potential of detector.**
 
