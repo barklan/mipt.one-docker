@@ -7,6 +7,7 @@ import quote
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types.message import ContentType
 from aiogram.types.input_media import InputMediaPhoto
+from aiogram.utils.markdown import hbold, link, quote_html
 import re
 import random
 import json
@@ -27,10 +28,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-welcome_message = 'Приветик!\nПросто выбери семестр и набери номер задачи.\n\
-Вы можете поменять семестр набрав "сем", "семестр", "sem", "semester".'
-
-
 # Initialize bot and dispatcher
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
@@ -47,7 +44,8 @@ else:
     all_time_users = set()
     with open(all_time_users_path, "wb") as f:
         pickle.dump(all_time_users, f)
-    
+
+
 def add_to_all_time_users(user_id):
     all_time_users.add(user_id)
     with open(all_time_users_path, "wb") as f:
@@ -64,6 +62,7 @@ else:
     blacklist = set()
     with open(blacklist_path, "wb") as f:
         pickle.dump(blacklist, f)
+
 
 def add_to_blacklist(user_id):
     blacklist.add(user_id)
@@ -87,8 +86,16 @@ def change_sem_keyboard():
 
 @dp.message_handler(commands="start")
 async def start_cmd_handler(message: types.Message):
-    await bot.send_message(
-        message.from_user.id, welcome_message, reply_markup=change_sem_keyboard()
+    support_chat_url = link("сюда", "https://t.me/miptonelove")
+    welcome_message = f"Приветик\!\nПросто выбери семестр и набери номер задачи\.\nЕсли вам есть что сказать \- пишите {support_chat_url}\."
+    message_to_pin = await bot.send_message(
+        message.from_user.id,
+        welcome_message,
+        reply_markup=change_sem_keyboard(),
+        parse_mode="MarkdownV2",
+    )
+    await bot.pin_chat_message(
+        chat_id=message_to_pin.chat.id, message_id=message_to_pin.message_id
     )
 
 
