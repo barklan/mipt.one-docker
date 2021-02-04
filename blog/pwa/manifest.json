@@ -1,0 +1,19 @@
+{
+  "name": "Gleb's Blog",
+  "short_name": "Gleb's Blog",
+  "description": "About deep learning and computer vision.",
+  "icons": [{
+    "src": "icons/128.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  }, {
+    "src": "icons/512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "background_color": "#fff",
+  "theme_color": "#000",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
